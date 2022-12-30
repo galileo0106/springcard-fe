@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title i18n></mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-card class="item" (click)="redirectUserTo('./yourcompanion')">
+      <div class="item_icon">
+        <fa-icon class="fa-2x" [icon]="faUserIcon"></fa-icon>
+      </div>
+      <div>
+      <h2 i18n>Your companion</h2>
+      <p i18n>Personalize your experience with SpringCard Companion and with SpringCard devices.</p>
+      </div>
+    </mat-card>
+    <mat-card class="item" (click)="redirectUserTo('./accountsettings')">
+      <div class="item_icon">
+        <fa-icon class="fa-2x" [icon]="faGearIcon"></fa-icon>
+      </div>
+      <div>
+      <h2 i18n>Account settings</h2>
+      <p i18n>Manage your profile, change your password, associate your account to a SpringCard customer number.</p>
+      </div>
+    </mat-card>
+    <mat-card class="item" *ngIf="isMemberOfTeam" (click)="redirectUserTo('./teammanage')">
+      <div class="item_icon">
+        <fa-icon class="fa-2x" [icon]="faTeamsIcon"></fa-icon>
+      </div>
+      <div>
+      <h2 i18n>Manage Team</h2>
+      <p i18n>Invite colleagues or business partners to collaborate in your team, and manage their access rights.</p>
+      </div>
+    </mat-card>
+    <mat-card class="item" *ngIf="isMemberOfTeam || isSingleAccount" (click)="redirectUserTo('./userhistory')">
+      <div class="item_icon">
+        <fa-icon class="fa-2x" [icon]="faFileLinesIcon"></fa-icon>
+      </div>
+      <div>
+      <h2 i18n>History</h2>
+      <p i18n>Retrieve the history of your connections and the operations you have done with SpringCard Companion.</p>
+      </div>
+    </mat-card>
+  </mat-card-content>
+</mat-card>

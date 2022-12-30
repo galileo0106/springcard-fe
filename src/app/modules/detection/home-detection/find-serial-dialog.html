@@ -1,0 +1,21 @@
+<style>
+  .mat-form-field {
+    width: 100%;
+  }
+</style>
+
+<h1 mat-dialog-title i18n>Find a new Serial Device</h1>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Serial port</mat-label>
+    <mat-select required [(value)]="selectedPort">
+      <mat-option *ngFor="let serialPort of data.serialPorts" [value]="serialPort.SerialPort"> {{serialPort.SerialPort}} </mat-option>
+    </mat-select>
+    <mat-error *ngIf="true" i18n>This field is required.</mat-error>
+    <mat-hint i18n>This field is required.</mat-hint>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="false" i18n>Cancel</button>
+  <button mat-button type="submit" [mat-dialog-close]="true" cdkFocusInitial color="primary" (click)="onFindClick();" i18n>Find</button>
+</mat-dialog-actions>

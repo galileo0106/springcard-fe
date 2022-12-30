@@ -1,0 +1,39 @@
+mat-card {
+  mat-card-content {
+    overflow: auto;
+    table {
+      min-width: 1200px;
+      width: 100%;
+      background-color: transparent;
+    }
+    .mat-table-sticky-border-elem-right {
+      border-left: 1px solid #d9d9d9;
+      background-color: #fafafa;
+      padding-right: 0;
+    }
+    .mat-column-author {
+      padding-right: 10px;
+    }
+  }
+}
+
+.control_content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  align-items: center;
+  form {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px;
+    .import_btn {
+      display: flex;
+      height: 40px;
+      justify-content: center;
+      .mat-progress-spinner::ng-deep circle {
+        stroke: white;
+      }
+    }
+  }
+}

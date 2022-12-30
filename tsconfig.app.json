@@ -1,0 +1,31 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "src",
+    "paths": {
+      "@shared/*": ["app/modules/shared/*"],
+      "@matcomponents/*": ["app/modules/mat-components/*"],
+      "@core/*": ["app/modules/core/*"],
+      "@configurations/*": ["app/modules/shared/configurations/*"],
+      "@billing/*": ["src/app/modules/shared/billing/*"]
+    },
+    "outDir": "./out-tsc/app",
+    "strictNullChecks": true,
+    "types": ["node"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitReturns": true,
+    "noImplicitAny": true
+  },
+  "files": [
+    "src/main.ts",
+    "src/polyfills.ts"
+  ],
+  "include": [
+    "src/**/*.d.ts"
+  ]
+}

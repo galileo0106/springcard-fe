@@ -1,0 +1,167 @@
+<ng-keyboard-shortcuts [shortcuts]="shortcuts"></ng-keyboard-shortcuts>
+<ng-keyboard-shortcuts-help [key]="'f1'" [closeKey]="'escape'" [title]="'Help'"></ng-keyboard-shortcuts-help>
+
+<app-device-informations
+  blockTitle="Scriptor - "
+  icon="input"
+  [deviceId]="deviceId"
+  [componentName]="componentName"
+  [buttonsList]="topButtons"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+>
+</app-device-informations>
+
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <h3 class="mat-h3">
+        <button mat-icon-button i18n-aria-label aria-label="Card present" i18n-matTooltip matTooltip="Card present" *ngIf="cardPresent">
+          <mat-icon>sim_card</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          [disabled]="isWaitingPcScAnswer"
+          i18n-aria-label
+          aria-label="Menu icon-button with a menu"
+        >
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="doAction('changeReader')" *ngIf="readerName && readersCount > 1">
+            <mat-icon>devices_other</mat-icon><span i18n>Change reader</span>
+          </button>
+          <button mat-menu-item (click)="doAction('models')">
+            <mat-icon>library_books</mat-icon><span i18n>get APDU from library</span>
+          </button>
+          <button mat-menu-item [cdkCopyToClipboard]="valueForClipboard">
+            <mat-icon>content_copy</mat-icon><span i18n>Copy command and response to clipboard</span>
+          </button>
+        </mat-menu>
+        <button
+          mat-icon-button
+          i18n-aria-label
+          aria-label="Clean output"
+          [disabled]="isWaitingPcScAnswer"
+          (click)="cleanOutput()"
+          i18n-matTooltip
+          matTooltip="Clean output (Ctrl + Del)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          i18n-aria-label
+          aria-label="Previous command"
+          [disabled]="isWaitingPcScAnswer"
+          (click)="previousCommand()"
+          i18n-matTooltip
+          matTooltip="Previous command (Ctrl + Shift + Left arrow)"
+          *ngIf="apduHistoryService.hasPrevious()"
+        >
+          <mat-icon>navigate_before</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          i18n-aria-label
+          aria-label="Next command"
+          [disabled]="isWaitingPcScAnswer"
+          (click)="nextCommand()"
+          i18n-matTooltip
+          matTooltip="Next command (Ctrl + Shift + Right arrow)"
+          *ngIf="apduHistoryService.hasNext()"
+        >
+          <mat-icon>navigate_next</mat-icon>
+        </button>
+        <span
+          *ngIf="readerName && readersCount > 1"
+          (click)="doAction('changeReader')"
+          i18n-matTooltip
+          matTooltip="Click to change reader"
+          class="hand"
+          >{{ readerName }}</span
+        >
+        <span *ngIf="readerName && readersCount === 1">{{ readerName }}</span>
+        <span i18n-matTooltip matTooltip="ATR" *ngIf="ATR"> - {{ ATR }}</span>
+        <span i18n-matTooltip matTooltip="Protocol" *ngIf="Protocol"> - {{ Protocol }}</span>
+      </h3>
+    </mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <!-- Les options -->
+    <mat-accordion>
+      <mat-expansion-panel class="spaced">
+        <mat-expansion-panel-header>
+          <mat-panel-title><strong i18n>Options</strong></mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <form [formGroup]="optionsForm">
+          <div class="online">
+            <mat-checkbox formControlName="stopOnError" (change)="setSettings()" i18n>Stop on error</mat-checkbox>
+            <mat-checkbox class="left-spaced" formControlName="stopOnSWnot9000" (change)="setSettings()" i18n
+              >Stop on SW not 9000</mat-checkbox
+            >
+          </div>
+          <div>
+            <mat-button-toggle-group
+              name="outputFormat"
+              (change)="setSettings()"
+              formControlName="outputFormat"
+              class="with-top-margin"
+              i18n-aria-label
+              aria-label="Output format"
+            >
+              <mat-button-toggle value="ascii" i18n>ASCII</mat-button-toggle>
+              <mat-button-toggle value="hex" i18n>Hex</mat-button-toggle>
+              <mat-button-toggle value="hexAscii" i18n>Hex + ASCII</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+          <div>
+            <mat-button-toggle-group
+              name="runningMode"
+              (change)="setSettings()"
+              formControlName="runningMode"
+              class="with-top-margin"
+              i18n-aria-label
+              aria-label="Running mode"
+            >
+              <mat-button-toggle value="transmit" i18n>Transmit</mat-button-toggle>
+              <mat-button-toggle value="control" i18n>Control</mat-button-toggle>
+            </mat-button-toggle-group>
+          </div>
+        </form>
+      </mat-expansion-panel>
+    </mat-accordion>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="isWaitingPcScAnswer"></mat-progress-bar>
+
+    <form [formGroup]="capduRapduForm" (ngSubmit)="sendApdu()" class="fullheight">
+      <div class="containerX">
+        <div
+          fxLayout="row"
+          fxLayout.xs="column"
+          fxLayout.sm="column"
+          fxFlex
+          class="coloredContainerX box"
+          fxLayoutAlign="space-around stretch"
+        >
+          <div fxFlex fxLayoutAlign="stretch">
+            <mat-form-field class="fullwh">
+              <mat-label i18n>Command(s)</mat-label>
+              <textarea matInput rows="30" placeholder="" formControlName="capdu" class="fullwh"></textarea>
+            </mat-form-field>
+          </div>
+          <div fxFlex fxLayoutAlign="stretch">
+            <mat-form-field class="fullwh">
+              <mat-label i18n>Output</mat-label>
+              <textarea matInput rows="30" placeholder="" formControlName="rapdu" class="fullwh"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

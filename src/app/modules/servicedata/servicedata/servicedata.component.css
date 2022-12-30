@@ -1,0 +1,26 @@
+.mat-header-row {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-header-cell {
+  font-size: 14px;
+}
+
+mat-table {
+  background-color: transparent;
+}

@@ -1,0 +1,101 @@
+<h1 class="mat-h1" i18n>Your team's configurations</h1>
+
+<!-- Les messages d'attente  -->
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<!-- La liste des membres de l'équipe -->
+<div class="small-container " *ngIf="teamMembers.length > 0 && !asyncOperation">
+  <form [formGroup]="teamMembersForm">
+    <h4 class="mat-h4" i18n>Select a member of your team</h4>
+    <mat-form-field class="full-width">
+      <mat-label i18n>Select a member of the team to see the configurations list</mat-label>
+      <mat-select formControlName="members" class="inline" (ngModelChange)="loadMemberConfigurationList()">
+        <mat-option *ngFor="let member of teamMembers" [value]="member.email"
+          >{{ member.first_name }} {{ member.last_name }} ({{ member.email }})</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+
+<!-- Quand il n'y a pas de membres dans l'équipe -->
+<div *ngIf="!asyncOperation && teamMembers.length === 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>Except you there's no members in your team.</h1>
+</div>
+
+<!-- Quand il n'y a pas de configurations  -->
+<div *ngIf="configurationsLoaded && configurations$.length === 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>This user does not have any configuration for this moment.</h1>
+</div>
+
+<!-- La liste des configurations de l'utilisateur -->
+<div class="example-container " *ngIf="!asyncOperation && configurations$.length > 0">
+  <mat-table #table [dataSource]="configurationsDataSource">
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Title</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="actionOnConfiguration(element.id, 'import')">
+            <mat-icon>import_export</mat-icon><span i18n>Import in your configurations</span>
+          </button>
+        </mat-menu>
+
+        <i class="material-icons" *ngIf="element.favorites">star</i>
+        <a [routerLink]="[]" (click)="actionOnConfiguration(element.id, 'view')">{{ element.title }}</a>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Description</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.description }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Created</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.created | iso8601toJsDate }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="modified">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Modified</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.created !== element.modified">{{ element.modified | iso8601toJsDate }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="product">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Product</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.product_title }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="author">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Author</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.author }} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

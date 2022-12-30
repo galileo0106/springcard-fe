@@ -1,0 +1,19 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="73" i18n="_templates_">(PAN)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>Read a 16-digit PAN</p></ng-container>
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

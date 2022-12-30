@@ -1,0 +1,152 @@
+<header *ngIf="!isLoadingDevice && currentDevice">
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar>
+        <mat-icon aria-hidden="false" aria-label="Configure" class="reverse_icon">{{ icon }}</mat-icon>
+      </div>
+      <mat-card-title class="card-container-left">
+        <!-- prettier-ignore -->
+        {{ blockTitle }} <span *ngIf="!currentDevice.FriendlyName">{{ currentDevice.Name }}</span>
+        <span *ngIf="currentDevice.FriendlyName">{{ currentDevice?.FriendlyName }}</span>
+        <span *ngIf="currentDevice.SerialNumber"> - {{ currentDevice.SerialNumber }}</span>
+        <span *ngIf="readerId && readerName"> - {{ readerName }}</span>
+      </mat-card-title>
+
+      <!-- Les boutons -->
+      <mat-card-title class="card-container-right" *ngFor="let oneButton of buttonsList">
+        <button
+          *ngIf="oneButton.type == 'raised-button'"
+          mat-raised-button
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          [disabled]="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          <span>{{ oneButton.label }}</span>
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'button'"
+          mat-button
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          [disabled]="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          {{ oneButton.label }}
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'icon-button'"
+          mat-icon-button
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          [disabled]="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'raised-icon-with-text'"
+          mat-raised-button
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          [disabled]="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+          {{ oneButton.label }}
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'button-icon-with-text'"
+          mat-button
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          [disabled]="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+          {{ oneButton.label }}
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'fab'"
+          mat-fab
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          disabled="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+          [matTooltip]="oneButton.tooltip ? oneButton.tooltip : ''"
+        >
+          <mat-icon *ngIf="oneButton.icon" aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+          <span *ngIf="!oneButton.icon">{{ oneButton.label }}</span>
+        </button>
+
+        <button
+          *ngIf="oneButton.type == 'mini-fab'"
+          mat-mini-fab
+          color="{{ oneButton.color }}"
+          class="with-left-space"
+          disabled="oneButton.disabled"
+          (click)="deviceInformationButtonClick(oneButton.label, oneButton.id)"
+        >
+          <mat-icon *ngIf="oneButton.icon" aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+          <span *ngIf="!oneButton.icon">{{ oneButton.label }}</span>
+        </button>
+      </mat-card-title>
+      <mat-slide-toggle  [(ngModel)]="advanced" (change)="setAdvancedState($event)" class="toggle-btn">Advanced</mat-slide-toggle>
+    </mat-card-header>
+    <mat-card-content>
+      <ng-container *ngIf="configurationName">
+        <span class="mat-body-strong">{{ configurationName }}</span>
+        <ng-container *ngIf="!configurationIsInReadOnlyMode">
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Change configuration settings"
+            (click)="deviceInformationButtonClick(configurationName, configurationButtonId)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </ng-container>
+      </ng-container>
+
+      <ul class="deviceItems" *ngIf="currentDevice.Channel && currentDevice?.SerialNumber">
+        <li>
+          <ul class="deviceItem">
+            <li *ngIf="currentDevice.Channel || currentDevice.VendorId || currentDevice.ProductId">
+              <!-- prettier-ignore -->
+              <ng-container i18n>Connection:</ng-container>&nbsp;<span class="bold"
+                >{{ currentDevice.Channel | uppercase }} {{ currentDevice.VendorId | hexadecimal }}
+                {{ currentDevice.ProductId | hexadecimal }}</span
+              >
+            </li>
+            <li *ngIf="currentDevice.Mode">
+              <!-- prettier-ignore -->
+              <ng-container i18n>Mode:</ng-container>&nbsp;<span class="bold">{{ currentDevice.Mode | uppercase }}</span>
+            </li>
+            <li *ngIf="currentDevice?.SerialNumber">
+              <!-- prettier-ignore -->
+              <ng-container i18n>Serial Number:</ng-container>&nbsp;<span class="bold">{{ currentDevice?.SerialNumber }}</span>
+            </li>
+            <li *ngIf="withFirmwareInformation">
+              <!-- prettier-ignore -->
+              <ng-container i18n>Current firmware: </ng-container>&nbsp;<span class="bold">{{ currentDevice.Firmware }}</span>
+            </li>
+            <li *ngIf="currentDevice.Version">
+              <!-- prettier-ignore -->
+              <ng-container i18n>version:</ng-container> &nbsp;<span class="bold">{{ currentDevice.Version }}</span>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</header>

@@ -1,0 +1,660 @@
+<app-device-informations [deviceId]="deviceId" [componentName]="childComponentName" [buttonsList]="topButtons" [configurationName]="configurationName" [configurationIsInReadOnlyMode]="isInReadOnlyMode" (deviceLoaded)="getDeviceFromComponent($event)" (loadingDeviceFailed)="deviceLoadFailed()"></app-device-informations>
+
+<div *ngIf="asyncOperation">
+  <h2 class="mat-h2"><ng-container i18n>Saving your configuration, please wait</ng-container></h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<div *ngIf="downloadingConfiguration">
+  <h2 class="mat-h2"><ng-container i18n>Downloading your configuration, please wait</ng-container></h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<mat-accordion *ngIf="!downloadingConfiguration || !asyncOperation">
+      <form [formGroup]="configurationForm">
+            <mat-expansion-panel class="panel" id="id1060_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Main configuration</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Profile</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register defines how the product is seen by the hosts: USB or BLE profile, primary interface, primary communication protocol. It implicitly activates either <a href="../../../Introduction/Operating_Modes">Operating mode</a>.</p></ng-container>
+            <input type="hidden" name="reg02c0_m6awtjl" id="reg02c0_m6awtjl"  formControlName="reg02c0_m6awtjl" >
+            
+            <input type="hidden" name="reg02c0_eph722y" id="reg02c0_eph722y"  formControlName="reg02c0_eph722y" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02c0_kspmojd" class="profile_title"><ng-container i18n="_multiconf_">Primary profile</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c0_kspmojd" class="custom-button-group" formControlName="reg02c0_kspmojd">
+													<mat-radio-button class="check-button" i18n-matTooltip matTooltip="SpringCore Direct" value="0" ><img src="assets/img/icons/button-mode-direct.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">SpringCore Direct</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="SpringProx Legacy mode, Serial or CDC" value="1" ><img src="assets/img/icons/button-mode-springprox.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">SpringProx Legacy mode, Serial or CDC</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="CCID (PC/SC or PC/SC-Like)" value="2" ><img src="assets/img/icons/button-mode-ccid.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">CCID (PC/SC or PC/SC-Like)</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="HID, keyboard-emulation" value="3" ><img src="assets/img/icons/button-mode-rfidscanner.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">HID, keyboard-emulation</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="Smart Reader mode, Serial or CDC" value="4" ><img src="assets/img/icons/button-mode-smartreader.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">Smart Reader mode, Serial or CDC</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="ST UHF reader host protocol, Serial or CDC" value="5" *ngIf="advanced"><img src="assets/img/icons/button-mode-stuhf.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">ST UHF reader host protocol, Serial or CDC</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="Mass Storage" value="6" *ngIf="advanced"><img src="assets/img/icons/button-mode-disk.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">Mass Storage</ng-container></p></mat-radio-button>
+												<mat-radio-button class="check-button" i18n-matTooltip matTooltip="NXP NFC Cockpit host protocol, Serial or CDC" value="7" *ngIf="advanced"><img src="assets/img/icons/button-mode-nxpnfc.svg" onerror="this.src='assets/img/icons/free-icon-click.png'" class="profile_icon"><p class="profile_text"><ng-container i18n="_multiconf_">NXP NFC Cockpit host protocol, Serial or CDC</ng-container></p></mat-radio-button>
+						</mat-radio-group>
+	</div>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">USB options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Control various options related to the USB interface.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>If the product has no USB interface, this register is ignored.</p></ng-container>
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02c1_m6awtjl"><ng-container i18n="_multiconf_">Disable USB</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_m6awtjl" class="mat-radio-group" formControlName="reg02c1_m6awtjl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">USB is enabled</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">USB is disabled, all the other settings are ignored</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_reg02c1_5ymphln_op23zml"><ng-container i18n="_multiconf_">Disable serial number</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_5ymphln_op23zml" class="mat-radio-group" formControlName="reg02c1_5ymphln_op23zml">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">The actual serial number of the product is provided in the USB descriptor</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">A constant serial number is provided in the USB descriptor</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_reg02c1_5ymphln_ax7h6sl"><ng-container i18n="_multiconf_">On USB bus reset event, does the product fully reset?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_5ymphln_ax7h6sl" class="mat-radio-group" formControlName="reg02c1_5ymphln_ax7h6sl">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">Don&#039;t reset</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">Do reset upon Bus reset</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_reg02c1_5ymphln_t6r55rl"><ng-container i18n="_multiconf_">On USB bus resume event, does the product fully reset?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_5ymphln_t6r55rl" class="mat-radio-group" formControlName="reg02c1_5ymphln_t6r55rl">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">Don&#039;t reset</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">Do reset upon Bus resume</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_reg02c1_5ymphln_eph722y"><ng-container i18n="_multiconf_">Disable SpringCore direct as secondary USB interface.</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_5ymphln_eph722y" class="mat-radio-group" formControlName="reg02c1_5ymphln_eph722y">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">SpringCore Direct is announced in the USB profile</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">SpringCore Direct is not announced in the USB profile</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02c1_gcbfcky_riuquxn"><ng-container i18n="_multiconf_">Behaviour of the product when USB VBUS is lost and the product is not allowed to keep running</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_gcbfcky_riuquxn" class="mat-radio-group" formControlName="reg02c1_gcbfcky_riuquxn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Reset</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Shutdown</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02c1_5ymphln_khxezgy"><ng-container i18n="_multiconf_">Behaviour of the product when USB VBUS is lost</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02c1_5ymphln_khxezgy" class="mat-radio-group" formControlName="reg02c1_5ymphln_khxezgy">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Stop - reset or shutdown</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Keep running on external power</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Keep running on battery</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Keep running (either on external power or battery)</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+        <div *ngIf="advanced" class="register">
+<h1><ng-container i18n="_multiconf_">Profile addons</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Control various options related to the current profile.</p></ng-container>
+            <input type="hidden" name="reg02c4_snvp4xd" id="reg02c4_snvp4xd"  formControlName="reg02c4_snvp4xd" >
+            
+                        
+</div>
+
+        <div *ngIf="advanced" class="register">
+<h1><ng-container i18n="_multiconf_">Trace level</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register is available only in debug builds of the firmware.</p></ng-container>
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Trace level</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02cd"
+           minlength="8"   maxlength="8" >
+            <mat-error>
+            <val-errors controlName="reg02cd"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1124_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Integrator&#039;s license</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Application name</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register is available to store the name of application or to identify the integrator who has loaded its license in the product. See the <a href="License_cryptogram">license cryptogram</a> paragraph for details.</p></ng-container>
+            <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Application name</ng-container></mat-label>        <input matInput type="text" formControlName="reg0208"
+              maxlength="32" >
+            <mat-error>
+            <val-errors controlName="reg0208"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1129_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration of the user interface</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Global UI options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register control global UI behaviour.</p></ng-container>
+            <input type="hidden" name="reg02d0_snvp4xd" id="reg02d0_snvp4xd"  formControlName="reg02d0_snvp4xd" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02d0_ooba6wy"><ng-container i18n="_multiconf_">Host controlled</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02d0_ooba6wy" class="mat-radio-group" formControlName="reg02d0_ooba6wy">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">UI is firmware controlled</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">UI is host controlled</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Options for the main 4-LED ramp</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>For products that have a set of 4 LEDs as primary user interface, this register control their behaviour.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>This register is ignored if the product's primary UI is an <a href="RGB_LED">RGB LED</a>.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Options for the main 4-LED ramp</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02d1"
+           minlength="2"   maxlength="2" >
+            <mat-error>
+            <val-errors controlName="reg02d1"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Settings for the main RGB LED(s)</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>For products that have a RGB LED (or a set of RGB LEDs) as primary user interface, this register defines its color and behaviour.</p></ng-container>
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02d2_3iq5wdd"><ng-container i18n="_multiconf_">Color of the RGB LED(s) when the product is active, waiting for a card</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02d2_3iq5wdd" class="mat-radio-group" formControlName="reg02d2_3iq5wdd">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">White</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Red</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Dark Red</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Yellow</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Dark Yellow</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="5" ><ng-container i18n="_multiconf_">Green</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="6" ><ng-container i18n="_multiconf_">Dark Green</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Cyan</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="8" ><ng-container i18n="_multiconf_">Dark Cyan</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="9" ><ng-container i18n="_multiconf_">Blue</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="16" ><ng-container i18n="_multiconf_">Dark Blue</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="17" ><ng-container i18n="_multiconf_">Magenta</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="18" ><ng-container i18n="_multiconf_">Dark Magenta</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="19" ><ng-container i18n="_multiconf_">Pink</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="20" ><ng-container i18n="_multiconf_">Purple</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="21" ><ng-container i18n="_multiconf_">Orange</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02d2_ai7xezy" id="reg02d2_ai7xezy"  formControlName="reg02d2_ai7xezy" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02d2_gjrcb2n"><ng-container i18n="_multiconf_">State of the RGB LED(s) when the product is active, waiting for a card</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02d2_gjrcb2n" class="mat-radio-group" formControlName="reg02d2_gjrcb2n">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">OFF</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Solid ON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Breathing</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Pulses</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02d2_5sqf4yy"><ng-container i18n="_multiconf_">Color of the RGB LED(s) when the product is inactive</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02d2_5sqf4yy" class="mat-radio-group" formControlName="reg02d2_5sqf4yy">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">White</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Red</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Dark Red</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Yellow</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Dark Yellow</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="5" ><ng-container i18n="_multiconf_">Green</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="6" ><ng-container i18n="_multiconf_">Dark Green</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Cyan</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="8" ><ng-container i18n="_multiconf_">Dark Cyan</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="9" ><ng-container i18n="_multiconf_">Blue</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="16" ><ng-container i18n="_multiconf_">Dark Blue</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="17" ><ng-container i18n="_multiconf_">Magenta</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="18" ><ng-container i18n="_multiconf_">Dark Magenta</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="19" ><ng-container i18n="_multiconf_">Pink</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="20" ><ng-container i18n="_multiconf_">Purple</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="21" ><ng-container i18n="_multiconf_">Orange</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02d2_k4uiain" id="reg02d2_k4uiain"  formControlName="reg02d2_k4uiain" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02d2_evlcwsl"><ng-container i18n="_multiconf_">State of the RGB LED(s) when the product is inactive</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02d2_evlcwsl" class="mat-radio-group" formControlName="reg02d2_evlcwsl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">OFF</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Solid ON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Breathing</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Pulses</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Light level for the main RGB LED(s)</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>For products that have a RGB LED (or a set of RGB LEDs) as primary user interface, this register control the light level.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Light level when active</ng-container></mat-label>        <input matInput type="number" formControlName="reg02d3_lmh6e5y"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Light level when idle</ng-container></mat-label>        <input matInput type="number" formControlName="reg02d3_gsqqlyn"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Delay before switching to dimmed-level luminosity.</ng-container></mat-label>        <input matInput type="number" formControlName="reg02d3_rk4pgmy"
+               >
+    </mat-form-field>
+            
+</div>
+
+        <div *ngIf="advanced" class="register">
+<h1><ng-container i18n="_multiconf_">Options for the auxiliary LEDs</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>For products that have auxiliary LEDs (for instance to show the state of the Bluetooth connection or the battery level), this register control their behaviour.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>This register is ignored if the product does not have any auxiliary LED.</p></ng-container>
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Options for the auxiliary LEDs</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02d7"
+           minlength="2"   maxlength="2" >
+            <mat-error>
+            <val-errors controlName="reg02d7"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Sound options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Options for the single-tone beeper (aka buzzer) or volume for the enhanced sound driver.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>This register is ignored if the product does not have a buzzer nor an enhanced sound driver.</p></ng-container>
+            <input type="hidden" name="reg02d8_hxqkjly" id="reg02d8_hxqkjly"  formControlName="reg02d8_hxqkjly" >
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Control whether the product is allowed to beep or define the Volume level. Set to 0 to disable sound. The maximum volume level depends on the product type.</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02d8_kspmojd"
+               >
+    </mat-form-field>
+            
+</div>
+
+        <div *ngIf="advanced" class="register">
+<h1><ng-container i18n="_multiconf_">Product Specific</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Custom UI options for specific products.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>This register can be ignored.</p></ng-container>
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Product Specific</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02d9"
+           minlength="0"   maxlength="128" >
+            <mat-error>
+            <val-errors controlName="reg02d9"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Theme selection</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Select which them to use for the UI .</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Specific products.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Theme selection</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02da"
+           minlength="6"   maxlength="6" >
+            <mat-error>
+            <val-errors controlName="reg02da"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1218_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration for Smart Reader operation</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Smart Reader features</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Key settings for Smart Reader operation</p></ng-container>
+            <input type="hidden" name="reg02a0_6ohabel_aeev4dd" id="reg02a0_6ohabel_aeev4dd"  formControlName="reg02a0_6ohabel_aeev4dd" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_oe4w4my"><ng-container i18n="_multiconf_">Insert / Remove</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_oe4w4my" class="mat-radio-group" formControlName="reg02a0_6ohabel_oe4w4my">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">The Smart Reader sends the Tag read event only</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">The Smart Reader sends the Tag inserted event when the tag arrives, and the Tag removed event when it has leaved</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02a0_6ohabel_n2k4omn" id="reg02a0_6ohabel_n2k4omn"  formControlName="reg02a0_6ohabel_n2k4omn" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_ups3l5l"><ng-container i18n="_multiconf_">Explicit activation</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_ups3l5l" class="mat-radio-group" formControlName="reg02a0_6ohabel_ups3l5l">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Smart Reader operation is activated automatically as soon as a host is connected</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Smart Reader operation has to be activated explicitly by a command from the host</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_5g4gajl"><ng-container i18n="_multiconf_">Activate on startup</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_5g4gajl" class="mat-radio-group" formControlName="reg02a0_6ohabel_5g4gajl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Smart Reader operation has to be activated</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Smart Reader operation is activated as soon as the product starts up</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02a0_6ohabel_43kxznd" id="reg02a0_6ohabel_43kxznd"  formControlName="reg02a0_6ohabel_43kxznd" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_rqjiszy"><ng-container i18n="_multiconf_">Output protocol over a serial link</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_rqjiszy" class="mat-radio-group" formControlName="reg02a0_6ohabel_rqjiszy">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">TLV</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">SCRDR</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">JSON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">MK1</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02a0_6ohabel_2j6me3l" id="reg02a0_6ohabel_2j6me3l"  formControlName="reg02a0_6ohabel_2j6me3l" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_ysqcqsn"><ng-container i18n="_multiconf_">Output protocol over a Bluetooth link</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_ysqcqsn" class="mat-radio-group" formControlName="reg02a0_6ohabel_ysqcqsn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">TLV</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">SCRDR</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">JSON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">MK1</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02a0_6ohabel_vkvtt3n" id="reg02a0_6ohabel_vkvtt3n"  formControlName="reg02a0_6ohabel_vkvtt3n" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_sxs7v7d"><ng-container i18n="_multiconf_">Output format over a Network link</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_sxs7v7d" class="mat-radio-group" formControlName="reg02a0_6ohabel_sxs7v7d">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">TLV</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">SCRDR</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">JSON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">MK1</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Legacy IWM2</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02a0_6ohabel_flooq3d" id="reg02a0_6ohabel_flooq3d"  formControlName="reg02a0_6ohabel_flooq3d" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02a0_6ohabel_jzirgky"><ng-container i18n="_multiconf_">Output format over a USB link</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02a0_6ohabel_jzirgky" class="mat-radio-group" formControlName="reg02a0_6ohabel_jzirgky">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">TLV</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">SCRDR</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">JSON</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">MK1</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Smart Reader timings</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Key timings for Smart Reader operation</p></ng-container>
+<ng-container i18n="_multiconf_"><p>All the timings are specified in tenth of seconds. Normal values go from 1 (100ms) to 254 (25.4s). Value 0 stands for as quickly as possible.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Delay between 2 consecutive readings</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02a1_6ohabel_rj665vl"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Delay before reading the same Tag again</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg02a1_6ohabel_gpg5rzd"
+               >
+    </mat-form-field>
+            
+</div>
+
+        
+        
+        
+        
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1289_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Security-related configuration</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Access Conditions to configuration &amp; firmware update</ng-container></h1>
+
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02f0_y4yzkmn"><ng-container i18n="_multiconf_">Protect the firmware</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02f0_y4yzkmn" class="mat-radio-group" formControlName="reg02f0_y4yzkmn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">The firmware can be upgraded with no restriction through the Local host interface</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Authentication using HostCommAdminKey is required to upgrade the firmware</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02f0_3m2xxun"><ng-container i18n="_multiconf_">Limit sensitive instructions</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02f0_3m2xxun" class="mat-radio-group" formControlName="reg02f0_3m2xxun">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">No restriction</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Authentication using HostCommAdminKey is required to run sensitive instructions</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02f0_noupivn"><ng-container i18n="_multiconf_">Configuration</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02f0_noupivn" class="mat-radio-group" formControlName="reg02f0_noupivn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Full access (read/write)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Write only</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Admin write only</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Locked</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="reg02f0_xajyakn" id="reg02f0_xajyakn"  formControlName="reg02f0_xajyakn" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02f0_ctwu2dn"><ng-container i18n="_multiconf_">Makes the configuration always readable</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02f0_ctwu2dn" class="mat-radio-group" formControlName="reg02f0_ctwu2dn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Enabled</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Disabled</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg02f0_ch4wbsl"><ng-container i18n="_multiconf_">Usage</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg02f0_ch4wbsl" class="mat-radio-group" formControlName="reg02f0_ch4wbsl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Free</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Authenticated</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Secure</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+<ng-container i18n="_multiconf_"><p>Whatever the settings in bits 5-4 of bytes 1 and 2, the registers holding the two passwords (<code>02FE</code> and <code>02FF</code>) can never be read back, and the <a href="../Inventory">Inventory</a> and <a href="../License">License</a> registers (<code>0200</code> to <code>020F</code>) are always readable.
+When the &quot;Protect admin key and sensitive registers&quot; bit in bytes 1 (Local) and 2 (Remote) is set, the <em>HostCommAdminKey</em> and the registers 02F0 to 02FF (including this Access Conditions register itself) can be changed only after an authentication using <em>HostCommAdminKey</em>. If this bit is not set, they are treated as all other configuration entries.</p></ng-container>
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Failed authentication counters</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Protect the product against brute-force attacks</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Choose value 0 to disable locking</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Counter to lock the Admin password in case of repeated authentication failures</ng-container></mat-label>        <input matInput type="number" formControlName="reg02f1_3iq5wdd"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Counter to lock the User password in case of repeated authentication failures</ng-container></mat-label>        <input matInput type="number" formControlName="reg02f1_ytndzhn"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Counter to lock the Admin authentication key in case of repeated authentication failures</ng-container></mat-label>        <input matInput type="number" formControlName="reg02f1_5sqf4yy"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Counter to lock the User authentication key in case of repeated authentication failures</ng-container></mat-label>        <input matInput type="number" formControlName="reg02f1_rxpn6ed"
+               >
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1321_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration of the RFID UHF (868/910MHz) reader</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">RFID UHF protocols</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Select the UHF protocols that the product is looking for.</p></ng-container>
+            <div class="mat-form-field-wrapper" >
+        <mat-label><ng-container i18n="_multiconf_">RFID UHF protocols</ng-container></mat-label>
+        <section class="mat-checkboxes-group">
+                    <mat-checkbox formControlName="id1326_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1327_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1328_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1329_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1330_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1331_Option"><ng-container i18n="_multiconf_">EPC Class 1 Gen 2 UHF (ISO/IEC 18000-6C)</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1332_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1333_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+            </section>
+</div>
+
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Local regulations for RFID UHF</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Select the UHF standard to comply with.</p></ng-container>
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">RFID UHF USB protocol</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Use ST reader suite or SpringCard Companion service</p></ng-container>
+            <div class="mat-form-field-wrapper" >
+        <mat-label><ng-container i18n="_multiconf_">RFID UHF USB protocol</ng-container></mat-label>
+        <section class="mat-checkboxes-group">
+                    <mat-checkbox formControlName="id1341_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1342_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1343_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1344_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1345_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1346_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1347_Option"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-checkbox>
+                    <mat-checkbox formControlName="id1348_Option"><ng-container i18n="_multiconf_">Use ST Reader Suite or not</ng-container></mat-checkbox>
+            </section>
+</div>
+
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Main carrier frequency</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This parameter is ignored unless the <a href="Regulations">local regulations</a> parameter is see to <code>FF</code> (Custom).</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Main carrier frequency</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0267"
+           minlength="2"   maxlength="2" >
+            <mat-error>
+            <val-errors controlName="reg0267"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+            <mat-expansion-panel class="panel" id="id1353_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration of the serial interface</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Legacy options</ng-container></h1>
+
+            <input type="hidden" name="reg029c_t2pgapn" id="reg029c_t2pgapn"  formControlName="reg029c_t2pgapn" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_reg029c_jv4bm2d"><ng-container i18n="_multiconf_">Control whether Legacy communication drives the UI automatically</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_reg029c_jv4bm2d" class="mat-radio-group" formControlName="reg029c_jv4bm2d">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">No automatic UI control, UI shall be controlled explicitly by the host</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Automatic UI control, the product signals the host actions on its LEDs</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Number of seconds after which the RF field is switched OFF and the host is reported has missing</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg029c_gpg5rzd"
+               >
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />
+<button *ngIf="configurationForm.valid" class="mine" mat-fab color="warn" i18n-matTooltip matTooltip="Your configuration is valid">
+  <mat-icon>check</mat-icon>
+</button>
+<button *ngIf="configurationForm.invalid" class="mine" mat-fab color="primary" i18n-matTooltip matTooltip="Your configuration is INVALID, please correct it">
+  <mat-icon>error_outline</mat-icon>
+</button>
+<p>
+  <span class="mat-small"><ng-container i18n>Target firmware version:</ng-container> 1.23</span>
+</p>

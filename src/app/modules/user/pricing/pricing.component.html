@@ -1,0 +1,96 @@
+<div *ngIf="!profileLoaded">
+  <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+  <h2 i18n>Loading your profile please wait...</h2>
+</div>
+<div class="pricing-container" *ngIf="profileLoaded">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <mat-icon>price_change</mat-icon>
+        <h1 i18n>Plans & Pricing</h1>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <h3>Do you wish to take advantage of personalized and flexible formulas?</h3>
+        <p>
+          Our subscriptions offer favourable licenses suitable to your needs and your business size. Our tariff plans can be evolved
+          constantly at any time according to your needs. Thanks to our personalized services; you can benefit from the very latest updates,
+          a tailor-made support as well as technical support that meet your expectations.
+        </p>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <table>
+        <thead>
+          <tr>
+            <th>Summary</th>
+            <th *ngFor="let plan of plansList" class="thl">{{ plan.label }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let planOptions of plansAccess">
+            <td class="thr ft-bold">{{ planOptions.label }}</td>
+            <td *ngFor="let access of planOptions.access" class="thl">
+              <ng-container *ngIf="access.access === 'Yes'">
+                <mat-icon>done</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="access.access === 'No'">
+                <mat-icon>close</mat-icon>
+              </ng-container>
+              <ng-container *ngIf="access.access !== 'Yes' && access.access !== 'No'"> {{ access.access }} </ng-container>
+            </td>
+          </tr>
+          <tr>
+            <td class="thr ft-bold">Price (excl. VAT)</td>
+            <td *ngFor="let plan of plansList" class="thl ft-bold">
+              <div>
+                <span>{{ plan.pricePerMonth }} &euro;</span>
+                &nbsp;<ng-container i18n>/ month</ng-container> <br />
+                <span>{{ plan.pricePerYear }} &euro;</span>
+                &nbsp;<ng-container i18n>/ year</ng-container>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td i18n class="ft-bold">Upgrade to</td>
+            <td *ngFor="let plan of plansList" class="btn-container">
+              <button
+                mat-stroked-button
+                type="button"
+                (click)="subscribe(plan.key)"
+                i18n
+                *ngIf="!authService.isLoggedIn() && plan.key === 'free'"
+                color="primary"
+              >Sign Up Now</button>
+              <button
+                mat-flat-button
+                type="button"
+                (click)="subscribe(plan.key)"
+                i18n
+                *ngIf="plan.key !== 'free' && userProfile && userProfile.user_account_type !== plan.key"
+                color="primary"
+              >Upgrade Now</button>
+              <button
+                mat-flat-button
+                type="button"
+                (click)="subscribe(plan.key)"
+                i18n
+                *ngIf="plan.key !== 'free' && !userProfile"
+                color="primary"
+              >Upgrade Now</button>
+              <button
+                mat-flat-button
+                color="warn"
+                [disableRipple]="true"
+                i18n
+                *ngIf="userProfile && userProfile.user_account_type === plan.key"
+              >Your current plan</button>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+      <h3 i18n>Billable annually at once, renewable annually by tacit agreement.</h3>
+    </mat-card-content>
+  </mat-card>
+</div>

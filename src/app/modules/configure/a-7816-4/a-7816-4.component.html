@@ -1,0 +1,188 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="13" i18n="_templates_">ISO-DEP on NFC-A and NFC-B - ISO/IEC 14443-4 'T=CL' types A and B</mat-option>
+					<mat-option value="11" i18n="_templates_">ISO-DEP on NFC-A - ISO/IEC 14443-4 'T=CL' type A</mat-option>
+					<mat-option value="12" i18n="_templates_">ISO-DEP on NFC-B - ISO/IEC 14443-4 'T=CL' type B</mat-option>
+					<mat-option value="72" i18n="_templates_">Innovatron Radio Protocol (legacy Calypso cards)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>ISO/IEC 7816-4 is the standard for smart card commands. Most contactless smartcards use the ISO/IEC 7816-4 on top of a ISO/IEC 14443-4 'T=CL' or &quot;ISO-DEP&quot; communication channel.
+According to this standard, the card is structured as a (lightweight) file-system, providing Directory Files and Elementary Files.
+The standard-defined Instruction-set allows to navigate in the smartcard's directories and file tree, and to read the data from its files.
+Every Instruction call is named an &quot;APDU&quot;.
+The card's Response to every Instruction is always terminated by a 2-B Status Word which denotes the success (values <code>9xxx</code>, typically <code>9000</code>) or the failure (values <code>6xxx</code>).
+Using this ISO/IEC 7816-4 Template, the Reader is able to send 1, 2 or 3 APDUs and to extract the data from the card's last Response.</p></ng-container>
+            <ng-container i18n="_multiconf_"><p>This Template is suitable to read data on virtually any contactless smartcard, provided that said data is accessible in the plain and without prior authentication.
+Reading data from a secure smartcard (such as Desfire) or an NFC applications (such as Apple VAS and Google SmartTap) is possible only using a dedicated Template that implements both the application-specific security and Instruction-set at once.</p></ng-container>
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">1st APDU</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This is typically a SELECT APPLICATION or a SELECT DIRECTORY Instruction.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>The Reader checks the Status Word. In case of any error (SW!=<code>9xxx</code>), the Template is terminated.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">1st APDU</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl3n4zrpl_reg0005"
+           minlength="0"   maxlength="64" >
+            <mat-error>
+            <val-errors controlName="tpl3n4zrpl_reg0005"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">2nd APDU</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This is typically a SELECT FILE Instruction.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>The Reader checks the Status Word. In case of any error (SW!=<code>9xxx</code>), the Template is terminated.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">2nd APDU</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl3n4zrpl_reg0006"
+           minlength="0"   maxlength="64" >
+            <mat-error>
+            <val-errors controlName="tpl3n4zrpl_reg0006"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">3rd APDU</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This is typically a READ BINARY or READ RECORD Instruction.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>The Reader checks the Status Word. In case of any error (SW!=<code>9xxx</code>), the Template is terminated.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">3rd APDU</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl3n4zrpl_reg0007"
+           minlength="0"   maxlength="64" >
+            <mat-error>
+            <val-errors controlName="tpl3n4zrpl_reg0007"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Output Size and Format</ng-container></h1>
+
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl3n4zrpl_reg0001_ut4pn2n_2kglign"><ng-container i18n="_multiconf_">Invert Data?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0001_ut4pn2n_2kglign" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0001_ut4pn2n_2kglign">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Transmit the sequence of bytes as is</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Transmit the sequence of bytes in reverse order</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl3n4zrpl_reg0001_ut4pn2n_7wdxe6d"><ng-container i18n="_multiconf_">Mode</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0001_ut4pn2n_7wdxe6d" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0001_ut4pn2n_7wdxe6d">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">RAW Mode (Data is a numerical value)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">String Mode (Data is an ASCII string)</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl3n4zrpl_reg0001_ut4pn2n_rsfphul"><ng-container i18n="_multiconf_">Padding if Data is shorted than specified length</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0001_ut4pn2n_rsfphul" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0001_ut4pn2n_rsfphul">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Padd with 0 on the left</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Padd with F on the right</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl3n4zrpl_reg0001_ut4pn2n_4hgd4jd"><ng-container i18n="_multiconf_">Remove leading zeroes?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0001_ut4pn2n_4hgd4jd" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0001_ut4pn2n_4hgd4jd">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Keep all digits</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Suppress 0 digits on the left of the Data</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl3n4zrpl_reg0001_ut4pn2n_ytndzhn"><ng-container i18n="_multiconf_">Length and Format</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0001_ut4pn2n_ytndzhn" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0001_ut4pn2n_ytndzhn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Decimal, 10 digits (truncation on 4-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Raw (hex), 4 bytes (32 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Raw (hex), 8 bytes (64 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Raw (hex), 5 bytes (40 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Raw (hex), 10 bytes (80 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="5" ><ng-container i18n="_multiconf_">Raw (hex), 7 bytes (56 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="6" ><ng-container i18n="_multiconf_">Raw (hex), 11 bytes (88 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="8" ><ng-container i18n="_multiconf_">Raw (hex), 16 bytes (128 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="9" ><ng-container i18n="_multiconf_">Raw (hex), 20 bytes (160 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="16" ><ng-container i18n="_multiconf_">Raw (hex), 24 bytes (196 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="17" ><ng-container i18n="_multiconf_">Raw (hex), 32 bytes (256 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="18" ><ng-container i18n="_multiconf_">Decimal, 12 digits (truncation on 5-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="19" ><ng-container i18n="_multiconf_">Decimal, 13 digits (truncation on 5-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="20" ><ng-container i18n="_multiconf_">Decimal, variable length</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="21" ><ng-container i18n="_multiconf_">Raw (hex), variable length</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                        
+                        
+                        
+                        
+                        
+                        
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Location of Data</ng-container></h1>
+
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bytes</ng-container></mat-label>        <input matInput type="number" formControlName="tpl3n4zrpl_reg0003_rj665vl"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bits</ng-container></mat-label>        <input matInput type="number" formControlName="tpl3n4zrpl_reg0003_gpg5rzd"
+               >
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>If this register is set, the Reader adds a token to its output to tell the receiver what kind of credential has been read.</p></ng-container>
+            <input type="hidden" name="tpl3n4zrpl_reg0004_g65secl" id="tpl3n4zrpl_reg0004_g65secl"  formControlName="tpl3n4zrpl_reg0004_g65secl" >
+            
+                        
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_tpl3n4zrpl_reg0004_khxezgy"><ng-container i18n="_multiconf_">Add a Card Type Token to the output stream?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl3n4zrpl_reg0004_khxezgy" class="mat-radio-group" formControlName="tpl3n4zrpl_reg0004_khxezgy">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">Do not add a Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">Add 1F hex value as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" *ngIf="advanced"><ng-container i18n="_multiconf_">Add T char as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" *ngIf="advanced"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Prefix</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>A Template-specific Prefix, that is added after the Reader's global Prefix.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Use <code>\\t</code> for a Tab, <code>\\n</code> for Enter, <code>\\b</code> for Back space, <code>\\v</code> for Vertical space.</p></ng-container>
+            <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Prefix</ng-container></mat-label>        <input matInput type="text" formControlName="tpl3n4zrpl_reg0002"
+              maxlength="8" >
+            <mat-error>
+            <val-errors controlName="tpl3n4zrpl_reg0002"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

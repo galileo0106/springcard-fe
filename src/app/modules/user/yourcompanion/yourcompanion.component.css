@@ -1,0 +1,13 @@
+.item_icon {
+  display: flex;
+  width: 60px;
+  justify-content: center;
+}
+
+fa-icon {
+  vertical-align: middle;
+}
+
+mat-card-content {
+  margin-left: 60px;
+}

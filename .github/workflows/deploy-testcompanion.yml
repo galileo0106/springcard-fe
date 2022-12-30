@@ -1,0 +1,33 @@
+name: Deploy to testcompanion.springcard.com
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  build-and-deploy:
+    name: Deploy to testcompanion.springcard.com
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16.14.2
+
+      - name: npm install and build
+        run: |
+          npm install
+          npm run build
+
+      - name: Install SSH Key
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          known_hosts: unnecessary
+
+      - name: Adding Known Hosts
+        run: ssh-keyscan -H ${{secrets.SSH_HOST}} >> ~/.ssh/known_hosts
+
+      - name: Deploying to testcompanion.springcard.com
+        run: |
+          rsync -rltgoDzvO --delete ./dist/ "${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:/home/www/testcompanion"
+          rsync -avz .htaccess "${{secrets.SSH_USER}}@${{secrets.SSH_HOST}}:/home/www/testcompanion"

@@ -1,0 +1,28 @@
+.mat-header-row {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  height: 82%;
+  max-height: 82%;
+  min-width: 300px;
+}
+
+.mat-table {
+  overflow: auto;
+  height: 100%;
+  max-height: 100%;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+.withPointer {
+  cursor: pointer;
+}

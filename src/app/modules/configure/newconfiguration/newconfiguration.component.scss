@@ -1,0 +1,26 @@
+.form-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  width: 100%;
+  .full-width {
+    max-width: 600px;
+    width: 100%;
+  }
+}
+
+
+.margined {
+  margin: 20px 20px 20px 20px;
+}
+
+.mat-flat-button {
+  font-size: 16px;
+  &::ng-deep .mat-button-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+}

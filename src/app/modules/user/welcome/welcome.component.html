@@ -1,0 +1,31 @@
+<div class="welcome-container">
+  <mat-card class="middle">
+    <mat-card-header>
+      <div mat-card-avatar class="welcome-header-image"></div>
+      <h1 mat-card-title i18n>Welcome to SpringCard Companion!</h1>
+      <mat-card-subtitle i18n
+        >Before to start using the software, you must read and accept our Terms of Service and License Agreement.</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <p i18n>Companion is SpringCard’s new secure application that features a suite of cloud softwares and services.</p>
+      <p i18n>From a single web-based interface; configure, store and update, simultaneously, the entire family of SpringCard products.</p>
+      <p i18n>For more than 20 years, we have combined technical know-how and constant innovation, to design powerful and secure contactless readers and softwares, adapted to your environments.</p>
+      <p i18n>To go further about our contactless technologies, please visit our website at <a target="_blank" href="https://www.springcard.com">www.springcard.com</a>.</p>
+      <p i18n>SpringCard respects your privacy in agreement with French laws, the data protection regulation and to our <a target="_blank" href="https://www.springcard.com/uploads/chartes/[GDPR]_customer_data_charter.pdf">GDPR</a> charter.</p>
+      <p i18n>By filling up the registration form, you voluntarily agree to provide your information to SpringCard. These information are only intended to offer you the best quality service, which will meet your expectations as much as possible.</p>
+      <p i18n>SpringCard protects the privacy of the information that you provide us, against consultation or modification by unauthorized third parties.</p>
+      <p i18n>Registered persons have a permanent right to rectify or delete their information. To exercise this right, please click
+        <a
+          target="_blank"
+          href="https://7d0494f9.sibforms.com/serve/MUIEAJuSRwGQ7v46yAYy4XWtTDkgOhPVHFdtZdEo7ixP4vRX65b3rCR0AXR2cWuBFx_kVH4n7tpbhLr6pc_Ppur2UTK3cE8yXPBOVpGRrAwOQflsDaQ9x66AK3cScqekTwnI7PMHSFxCLy2YzmiyKk7tRosyDNdmnE_euw7yhxyaM4OJceiJ54ddBjSxM2n1YK6xB_e7vbge0f8-?utm_source=firmware&utm_medium=companion&utm_campaign=message_bienvenue_en&utm_term=desinscription"
+          >here</a
+        >.</p>
+      <p i18n>SpringCard cannot be held liable for damages resulting from the software use, for any financial or commercial damage, for datas loss or other from the user.</p>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button mat-stroked-button (click)="decline()" i18n>Decline</button>
+      <button mat-flat-button color="primary" (click)="accept()" i18n>Accept</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

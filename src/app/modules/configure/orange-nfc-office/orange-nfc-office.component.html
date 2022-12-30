@@ -1,0 +1,21 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="C1" i18n="_templates_">(Orange NFC Office)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>Read an identifier from the Orange NFC Office application running on a smartphone.
+Use this template to read an identifier from the Orange NFC Office application running on a smartphone.
+Orange NFC APIs for Office is a framework for NFC services, offered by Mobile Network Operator Orange. It targets user identification applications (access control, private e-purse, car park &amp; card sharing, and alikes). The services are provided by the smartphone either in host-based card emulation mode (HCE) or through a SIM card. Organisations are identified by an ApplicationId (variable length) and their organisation units by a ZoneId (on 6 bytes). A diversified AES key protects the data. Every user “belonging” to the organisation is identified by a Badge number on 10 bytes.</p></ng-container>
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

@@ -1,0 +1,62 @@
+<app-device-informations
+  [deviceId]="deviceId"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+></app-device-informations>
+
+<div *ngIf="!configurationsLoaded">
+  <h2 class="mat-h2"><ng-container i18n>Loading your configurations please wait</ng-container></h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<app-over-limit [limitLabel]="limitLabel" *ngIf="overLimit"></app-over-limit>
+
+<div class="flash-form " *ngIf="configurationsLoaded && !overLimit">
+  <form [formGroup]="actionForm" (ngSubmit)="useExistingConfiguration()">
+    <h2 class="mat-h2" i18n>Select an existing configuration to use</h2>
+    <mat-form-field class="largeselect">
+      <mat-select formControlName="selectedConfiguration" i18n-placeholder placeholder="Configurations list" required>
+        <mat-option *ngFor="let configuration of configurations$" [value]="configuration.id"
+          ><i class="material-icons" *ngIf="configuration.favorites">star</i> {{ configuration.title }} ({{
+            configuration.created | iso8601toJsDate
+          }}<span *ngIf="configuration.modified && configuration.modified != configuration.created"
+            >, {{ configuration.modified | iso8601toJsDate }}</span
+          >)</mat-option
+        >
+      </mat-select>
+      <mat-error>
+        <val-errors controlName="selectedConfiguration"></val-errors>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="button-row">
+      <button type="submit" mat-raised-button i18n>Use configuration</button>
+    </div>
+  </form>
+
+  <mat-divider class="wtandbm"></mat-divider>
+
+  <form [formGroup]="configurationForm" (ngSubmit)="createNewConfiguration()">
+    <h2 class="mat-h2" i18n>Or create a new one</h2>
+    <mat-form-field class="full-width">
+      <mat-label i18n>Configuration name</mat-label>
+      <input matInput type="text" formControlName="title" required />
+      <mat-error>
+        <val-errors controlName="title"></val-errors>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="full-width">
+      <mat-label i18n>Configuration description</mat-label>
+      <textarea matInput placeholder="" formControlName="description"></textarea>
+    </mat-form-field>
+
+    <!--<div class="mat-form-field-wrapper">
+      <mat-checkbox formControlName="favorites" i18n>Favorite this configuration</mat-checkbox>
+    </div>-->
+
+    <button mat-raised-button type="submit" i18n>Create</button>
+  </form>
+</div>

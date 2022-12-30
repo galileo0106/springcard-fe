@@ -1,0 +1,50 @@
+.user-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  .user-container {
+    display: flex;
+    max-width: 990px;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    h3 {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      .mat-icon {
+        margin-right: 5px;
+      }
+    }
+    .content-container {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      width: 100%;
+      .mat-card {
+        padding: 40px 30px 20px;
+        .mat-card-content {
+          display: flex;
+          flex-direction: column;
+          gap: 30px;
+          .content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            form {
+              display: flex;
+              flex-direction: column;
+              gap: 5px;
+              .bottom {
+                display: flex;
+                flex-direction: column;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

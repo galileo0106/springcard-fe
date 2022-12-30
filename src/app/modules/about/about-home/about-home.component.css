@@ -1,0 +1,42 @@
+.mat-header-row {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.mat-table {
+  overflow: auto;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+mat-card {
+  margin-bottom: 10px;
+}
+
+mat-card-header {
+  margin-bottom: 16px;
+}
+
+mat-card-title {
+  font-weight: bold;
+  display: inline;
+}
+
+mat-card-content {
+  margin-left: 16px;
+}
+
+mat-card-content span {
+  font-weight: bold;
+  font-family: "Nunito" !important;
+}
+
+.about {
+  max-height: 580px;
+  height: fit-content;
+  overflow-y: auto;
+}

@@ -1,0 +1,21 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="C0" i18n="_templates_">(Orange NFC Retail)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>Read an identifier from the Orange NFC Retail application running on a smartphone.
+Orange NFC APIs for Retail is a framework for NFC services, offered by Mobile Network Operator Orange. It targets loyalty, couponing and alike applications.
+The services rely on a general-purpose cardlet, loaded into a NFC-enabled smartphone's SIM card. Merchants and service providers are identified by a unique RetailerId (on 4 bytes). Every user “belonging” to this merchant or service provider is identified by either a unique HolderId (on 20 bytes), assigned by Orange to this very user, a CustomerId, defined freely by the merchant or service provider in association with a customer account, a LoyaltyId, defined freely by the merchant or service provider in association with a loyalty card or coupons.</p></ng-container>
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

@@ -1,0 +1,130 @@
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+<mat-card *ngIf="!asyncOperation">
+  <mat-card-header>
+    <div mat-card-avatar item_icon>
+        <fa-icon class="fa-2x" [icon]="faGearIcon"></fa-icon>
+    </div>
+    <mat-card-title i18n>Account settings</mat-card-title>
+    <mat-card-subtitle i18n>Manage your profile, change your password, associate your account to a SpringCard customer number.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <form class="general_form" [formGroup]="generalForm">
+      <mat-form-field>
+        <mat-label i18n>Connection Method</mat-label>
+        <input matInput type="text" name="connectionMethod" formControlName="connectionMethod" value="Login+password" readonly/>
+      </mat-form-field>
+      <div>
+      <mat-form-field>
+        <mat-label i18n>Email</mat-label>
+        <input matInput type="email" name="email" formControlName="email" value="asdfadsf" readonly />
+      </mat-form-field>
+      <button *ngIf="isChangePassBtnShow" mat-flat-button i18n color="primary" (click)="openDialog('changepass')">Change Password</button>
+      <button mat-stroked-button i18n (click)="logout()">Logout</button>
+      </div>
+    </form>
+      <h2 i18n>Contact Details</h2>
+    <form class="details_form" [formGroup]="detailsForm" (ngSubmit)="editProfile()">
+      <mat-form-field>
+        <mat-label i18n>First Name</mat-label>
+        <input matInput type="text" name="first_name" formControlName="first_name" [readonly]='!isEditingProfile' required/>
+        <mat-error>
+          <val-errors controlName="first_name"></val-errors>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label i18n>Last Name</mat-label>
+        <input matInput type="text" name="last_name" formControlName="last_name" [readonly]='!isEditingProfile' required />
+        <mat-error>
+          <val-errors controlName="last_name"></val-errors>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+        <mat-label i18n>Phone number</mat-label>
+        <input matInput type="tel" name="phone" [readonly]='!isEditingProfile' formControlName="phone" />
+        <mat-error>
+          <val-errors controlName="phone"></val-errors>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+        <mat-label i18n>Company</mat-label>
+        <input matInput type="text" name="company" [readonly]='!isEditingProfile' formControlName="company" />
+      </mat-form-field>
+      <div>
+        <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+          <mat-label i18n>Country</mat-label>
+          <mat-select formControlName="country" class="readonly-select" required>
+            <mat-option *ngFor="let country of countries" value="{{ country.code }}" [readonly]='!isEditingProfile'>{{ country.name }}</mat-option>
+          </mat-select>
+          <mat-error>
+            <val-errors controlName="country"></val-errors>
+          </mat-error>
+        </mat-form-field>
+        <button mat-flat-button i18n color="primary" *ngIf="!isEditingProfile" (click)="editProfile()">Edit</button>
+        <button mat-flat-button color="primary" *ngIf="isEditingProfile" (click)="saveProfile()">
+          <mat-icon *ngIf="isSaving"><mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner></mat-icon><ng-container i18n>Save</ng-container></button>
+        <button mat-stroked-button i18n *ngIf="isEditingProfile" (click)="cancelEditing()">Cancel</button>
+      </div>
+    </form>
+    <h2 i18n>Customer Account & Subscription</h2>
+    <form class="subscription_form" [formGroup]="subscriptForm">
+      <!-- <h2 i18n>Customer Account & Subscription</h2> -->
+      <div *ngIf="planType==1">
+      <strong i18n>You are currently using the free plan of SpringCard Companion.</strong>
+      <p i18n>Please enter your SpringCard Customer Account Number to subscribe to a Single or Team plan.<br/>
+        If you are not a SpringCard customer yet, please <a>open an account here</a> or contact <a>SpringCard Sales.</a></p>
+      </div>
+      <div *ngIf="planType==1">
+        <mat-form-field>
+          <mat-label i18n>Customer Account Number</mat-label>
+          <input matInput type="text" name="account_number" formControlName="account_number" required />
+        </mat-form-field>
+        <button mat-flat-button i18n color="primary" (click)="upgradeTo('single')">Subscribe</button>
+      </div>
+      <div class="radioSelect" *ngIf="planType==1">
+        <p i18n>Select Plan:</p>
+        <mat-radio-group aria-label="Select Plan" name="plantype" formControlName="plantype">
+          <mat-radio-button value="single">Single</mat-radio-button>
+          <mat-radio-button value="team">Team</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="radioSelect" *ngIf="planType==1">
+        <p i18n>Billing Period:</p>
+        <mat-radio-group aria-label="Billing Period" name="billing" formControlName="billing">
+          <mat-radio-button value="monthly">Monthly</mat-radio-button>
+          <mat-radio-button value="yearly">Yearly</mat-radio-button>
+        </mat-radio-group>
+      </div>
+      <div class="sub_content" *ngIf="planType==2">
+        <div class="form_content">
+          <mat-form-field>
+            <mat-label i18n>Customer Account Number</mat-label>
+            <input matInput type="text" name="account_number" formControlName="account_number" required />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label i18n>Plan</mat-label>
+            <input matInput type="text" name="plan" formControlName="plan" required />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label i18n>Active until</mat-label>
+            <input matInput type="text" name="active_until" formControlName="active_until" required />
+          </mat-form-field>
+        </div>
+        <div class="extra_text">
+          <p>Your plan will be automatically renewed its expiration date: an invoice will be generated for the indicated Springcard Customer Account Number.
+            Contact <a>SpringCard Sales</a> if you want to cancel your subscription or subscribe to another plan.
+          </p>
+        </div>
+      </div>
+      <div *ngIf="planType==3" class="team_form">
+        <strong i18n>You are currently using SpringCard Companion with a Team plan as a Member.<br/>
+          Your Team manager is {{this.userProfile.first_name}} {{this.userProfile.last_name}} ({{this.userProfile.company}}), address {{this.userProfile.email}}.
+        </strong>
+        <p i18n>Please contact this person if you have any questions regarding how to SpringCard Companion is used within your organization.</p>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

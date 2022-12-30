@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-header>
+      <div mat-card-avatar item_icon>
+          <fa-icon class="fa-2x" [icon]="faUserIcon"></fa-icon>
+      </div>
+      <mat-card-title i18n>Your companion</mat-card-title>
+      <mat-card-subtitle i18n>Personalize your experience with SpringCard Companion and with SpringCard devices.</mat-card-subtitle>
+    </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="languageForm">
+      <mat-form-field class="full-width">
+        <mat-label i18n>Preferred Language</mat-label>
+        <mat-select formControlName="language" required>
+          <mat-option *ngFor="let language of languageList" [value]="language">{{ language }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+</mat-card>

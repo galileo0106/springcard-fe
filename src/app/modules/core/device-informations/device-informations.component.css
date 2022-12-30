@@ -1,0 +1,47 @@
+.deviceItems {
+  list-style-type: none;
+  margin-left: 10px;
+  padding: 0;
+}
+
+ul.deviceItem {
+  margin-left: 0px;
+  padding-left: 0px;
+}
+
+ul.deviceItem li {
+  display: inline;
+  margin-right: 20px;
+}
+
+ul.deviceItem li span {
+  font-weight: bold;
+}
+
+mat-card {
+  margin-bottom: 8px;
+}
+
+.with-left-space {
+  margin-left: 5px;
+}
+
+.card-container-right {
+  display: inline;
+  /*vertical-align: top;*/
+  float: right;
+}
+
+.card-container-left {
+  display: inline;
+}
+
+.mat-card-header-text {
+  width: 100% !important;
+}
+
+.toggle-btn {
+  margin-right: 10px;
+  font-size: 1rem;
+  font-weight: 500;
+}

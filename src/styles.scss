@@ -1,0 +1,194 @@
+@use '@angular/material' as mat;
+@import '@angular/material/_theming';
+
+$md-springcardred: (
+  50: #fae2e4,
+  100: #f3b6bb,
+  200: #ec858e,
+  300: #e45461,
+  400: #de2f3f,
+  500: #d80a1d,
+  600: #d4091a,
+  700: #ce0715,
+  800: #c80511,
+  900: #bf030a,
+  A100: #ffe7e8,
+  A200: #de2f3f,
+  A400: #ce0715,
+  A700: #bf030a,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$md-springcardchamp: (
+  50: #f5f1f0,
+  100: #e7ddd9,
+  200: #d7c6c0,
+  300: #c6afa6,
+  400: #ba9e93,
+  500: #ae8d80,
+  600: #a78578,
+  700: #9d7a6d,
+  800: #947063,
+  900: #845d50,
+  A100: #ffede7,
+  A200: #ffc6b4,
+  A400: #ff9f81,
+  A700: #ff8c68,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+@include mat.core();
+
+$candy-app-primary: mat.define-palette($md-springcardred);
+$candy-app-accent: mat.define-palette($md-springcardred, A200, A100, A400);
+$candy-app-warn: mat.define-palette($md-springcardchamp);
+$candy-app-theme: mat.define-light-theme($candy-app-primary, $candy-app-accent, $candy-app-warn);
+
+@include mat.all-component-themes($candy-app-theme);
+
+@import url(https://fonts.googleapis.com/css?family=Nunito);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  background-color: #fafafa !important;
+}
+
+p, h1, h2, h3, h4, h5, h6, td, label, a, .mat-cell, .mat-card, .mat-header-cell, .mat-card-title, .mat-card-subtitle, li, button, .mat-tab-label-content, .mat-list-item, .mat-list-base .mat-list-item, .mat-form-field, .mat-option, .mat-expansion-panel-header-title {
+  font-family: 'Nunito' !important;
+  color: #102C43;
+}
+mat-card {
+  box-shadow: none !important;
+  border: solid 1px #d9d9d9;
+  border-radius: 0 !important;
+  background-color: #fafafa !important;
+}
+mat-expansion-panel {
+  border-radius: 0 !important;
+  background-color: #fafafa !important;
+}
+mat-table {
+  background-color: #fafafa !important;
+}
+a {
+  color: #d80a1d;
+}
+mat-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0px;
+}
+
+mat-radio-button {
+  margin-bottom: 6px;
+}
+
+mat-error {
+  color: #d80a1d !important;
+}
+
+mat-error.bottom {
+  border: solid 1px #d80a1d;
+  display: block;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+}
+
+.mat-dialog-title {
+  display: flex;
+  align-items: center;
+  .mat-icon {
+    margin-right: 5px;
+  }
+}
+.mat-dialog-container {
+  min-width: 400px;
+}
+
+.reverse_icon {
+  color: #c0c0c0;
+}
+
+.mat-card-header-text{
+  width: 100% !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; }
+
+.flex-col-gap-10 {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.snackbar-error {
+  background-color: #d80a1d;
+  color: white;
+  button {
+    color: white;
+  }
+}
+.snackbar-warning {
+  background-color: #ed6c02;
+  color: white;
+  button {
+    color: white;
+  }
+}
+
+.snackbar-information {
+  background-color: #0288d1;
+  color: white;
+  button {
+    color: white;
+  }
+}
+
+.snackbar-success {
+  background-color: #2e7d32;
+  color: white;
+  button {
+    color: white;
+  }
+}

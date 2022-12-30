@@ -1,0 +1,204 @@
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<mat-card *ngIf="!asyncOperation && !isEditingProfile">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon aria-hidden="false" aria-label="Account" class="reverse_icon">account_circle</mat-icon>
+    </div>
+    <mat-card-title i18n>Your account and plan</mat-card-title>
+    <mat-card-subtitle class="alert"
+      ><ng-container *ngIf="renewMessage"><mat-icon>warning_amber</mat-icon> {{ renewMessage }}</ng-container></mat-card-subtitle
+    >
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group animationDuration="0ms">
+      <mat-tab i18n-label label="Your account">
+        <ul class="profile">
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Plan Type</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.user_account_type | titlecase }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Account creation and expiration date</ng-container>
+            </div>
+            <div class="strong">{{ userProfile.created | iso8601toJsDate: false }} - {{ expirationDate }}</div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Full name</ng-container>
+            </div>
+            <div class="strong">{{ userProfile.first_name | na }} {{ userProfile.last_name | na }}</div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Email</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.email }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Company</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.company | na }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Phone number</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.phone | na }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>International V.A.T. number</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.vat | na }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Country</ng-container>
+            </div>
+            <div class="strong">
+              {{ userCountry | na }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Subscribed to newsletter?</ng-container>
+            </div>
+            <div class="strong">
+              <ng-container i18n *ngIf="userProfile.newsletter">Yes</ng-container>
+              <ng-container i18n *ngIf="!userProfile.newsletter">No</ng-container>
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>I use the SpringCard products for</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.products_used_for | na }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Configurations count</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.configurations_count }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Devices count</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.devices_count }}
+            </div>
+          </li>
+          <li>
+            <div class="title caption">
+              <ng-container i18n>Devices flashed count</ng-container>
+            </div>
+            <div class="strong">
+              {{ userProfile.flash_count }}
+            </div>
+          </li>
+        </ul>
+        <div class="action-button">
+          <button mat-raised-button color="warn" (click)="editProfile()" i18n>Edit profile</button>
+          <button mat-raised-button color="warn" (click)="redirectUserTo('./requestnewpassord')" i18n>Change password</button>
+          <button mat-raised-button color="primary" (click)="removeAccount()" i18n>Remove your account</button>
+        </div>
+      </mat-tab>
+      <mat-tab i18n-label label="Your plan">
+        <div *ngIf="userPlan">
+          <ul class="profile">
+            <li>
+              <div class="title caption">
+                <ng-container i18n>Your current plan is</ng-container>
+              </div>
+              <div class="strong">
+                {{ userPlan.label }}
+              </div>
+            </li>
+            <li>
+              <div class="title caption">
+                <ng-container i18n>Summary</ng-container>
+              </div>
+              <div class="strong">
+                {{ userPlan.summary }}
+              </div>
+            </li>
+            <li>
+              <div class="title caption">
+                <ng-container i18n>Description</ng-container>
+              </div>
+              <div class="strong">
+                {{ userPlan.description }}
+              </div>
+            </li>
+            <li>
+              <div class="title caption">
+                <ng-container i18n>Price per month</ng-container>
+              </div>
+              <div class="strong">{{ userPlan.pricePerMonth }} &euro; &nbsp;<ng-container i18n>(price excluding tax)</ng-container></div>
+            </li>
+            <li>
+              <div class="title caption">
+                <ng-container i18n>Price per year</ng-container>
+              </div>
+              <div class="strong">{{ userPlan.pricePerYear }} &euro; <ng-container i18n>(price excluding tax)</ng-container></div>
+            </li>
+            <li *ngFor="let oneAccess of userPlan.access">
+              <div class="title caption">
+                <ng-container>{{ oneAccess.label }}</ng-container>
+              </div>
+              <div class="strong">
+                {{ oneAccess.access }}
+              </div>
+            </li>
+          </ul>
+          <div class="action-button">
+            <button
+              mat-raised-button
+              color="warn"
+              (click)="downgradeTo(userPlan.downgradeTo)"
+              i18n
+              *ngIf="userPlan.downgradeTo !== '' && renewMessage"
+            >Downgrade</button>
+            <button mat-raised-button color="warn" (click)="upgradeTo(userPlan.upgradeTo)" i18n *ngIf="userPlan.upgradeTo !== ''">Upgrade</button>
+          </div>
+        </div>
+      </mat-tab>
+      <mat-tab i18n-label label="Your Billing">
+        <br />
+        <h2 class="mat-h2" i18n>Need an invoice?</h2>
+        <a href="mailto:sales@springcard.com" target="_blank" i18n>Contact us</a>.
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+  <br />
+</mat-card>
+
+<app-profile
+  [createAccount]="false"
+  [existingUserProfile]="userProfile"
+  (canHideComponent)="canHideEditingProfile($event)"
+  *ngIf="!asyncOperation && isEditingProfile"
+></app-profile>

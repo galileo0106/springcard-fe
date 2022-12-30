@@ -1,0 +1,167 @@
+<h1 class="mat-h1" i18n>Flash history</h1>
+
+<!-- Les messages d'attente  -->
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<!-- La liste des membres de l'équipe -->
+<div class="small-container " *ngIf="!asyncOperation">
+  <!-- teamMembers.length > 0 &&  -->
+  <form [formGroup]="teamMembersForm">
+    <ng-container *ngIf="authService.getType() === 2">
+      <h4 class="mat-h4" i18n>Select a member of your team</h4>
+
+      <mat-form-field class="full-width">
+        <mat-label i18n>Select a member of the team to see the flash history</mat-label>
+        <mat-select formControlName="members" class="inline" (ngModelChange)="getUserProductsList()">
+          <mat-option *ngFor="let member of teamMembers" [value]="member.email"
+            >{{ member.first_name }} {{ member.last_name }} ({{ member.email }})</mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+    </ng-container>
+
+    <mat-form-field class="full-width" *ngIf="userProducts && userProducts.length > 0">
+      <mat-label i18n>Select a product to see the flash history</mat-label>
+      <mat-select formControlName="products" class="inline" (ngModelChange)="loadFlashHistory()">
+        <mat-option *ngFor="let product of userProducts" [value]="product.UniqueId">{{ product.product_title }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button (click)="exportUserDataToCsv()" mat-raised-button type="button" i18n *ngIf="!asyncOperation && hasDataToExport">Export data to csv</button>
+  </form>
+</div>
+
+<!-- Quand il n'y a pas de membres dans l'équipe -->
+<div *ngIf="!asyncOperation && teamMembers.length === 0 && authService.getType() === 2">
+  <br /><br />
+  <h1 class="mat-h1" i18n>Except you there's no members in your team.</h1>
+</div>
+
+<!-- Quand il n'y a pas de produits  -->
+<div *ngIf="productsLoaded && userProducts.length === 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>This user does not have any product for this moment.</h1>
+</div>
+
+<!-- Quand il n'y a pas de flash  -->
+<div *ngIf="flashLoaded && productFlashHistory.length === 0 && productsLoaded && userProducts.length > 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>This user has not flashed any product.</h1>
+</div>
+
+<!-- La liste des configurations de l'utilisateur -->
+<div class="example-container " *ngIf="!asyncOperation && productFlashHistory.length > 0">
+  <mat-table #table [dataSource]="FlashsDataSource">
+    <ng-container matColumnDef="flashed_at">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Flashed at</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.flashed_at | iso8601toJsDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="success">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Flashed with succcess?</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.success | yesNo }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="reason">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Result ?</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.reason }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="local_file">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Flashed from a local file?</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.local_Vendor" i18n>Yes</ng-container>
+        <ng-container *ngIf="!element.local_Vendor" i18n>No</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Vendor">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Vendor</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Vendor">{{ element.Vendor }}</ng-container>
+        <ng-container *ngIf="!element.Vendor">{{ element.local_Vendor }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Product">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Product</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Product">{{ element.Product }}</ng-container>
+        <ng-container *ngIf="!element.Product">{{ element.local_Product }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Firmware">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Firmware</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Firmware">{{ element.Firmware }}</ng-container>
+        <ng-container *ngIf="!element.Firmware">{{ element.local_Firmware }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Version">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Version</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Version">{{ element.Version }}</ng-container>
+        <ng-container *ngIf="!element.Version">{{ element.local_Version }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Revision">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Revision</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Revision">{{ element.Revision }}</ng-container>
+        <ng-container *ngIf="!element.Revision">{{ element.local_Revision }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="BuildDate">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>BuildDate</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.BuildDate">{{ element.BuildDate | iso8601toJsDate: false }}</ng-container>
+        <ng-container *ngIf="!element.BuildDate">{{ element.local_BuildDate | iso8601toJsDate: false }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="Filename">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Filename</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.Filename">{{ element.Filename }}</ng-container>
+        <ng-container *ngIf="!element.Filename"></ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

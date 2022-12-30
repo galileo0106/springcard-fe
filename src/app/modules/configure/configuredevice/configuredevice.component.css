@@ -1,0 +1,48 @@
+.flash-form {
+  display: flex;
+  flex-direction: column;
+  height: 79%;
+  max-height: 79%;
+  min-width: 300px;
+  padding: 12px;
+}
+
+ul.deviceItem li span {
+  font-weight: bold;
+}
+
+mat-error {
+  color: #f44336;
+  display: block;
+  font-size: 15px;
+}
+
+div.button-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: left;
+}
+
+.largeselect {
+  display: block;
+  min-width: 100%;
+  width: 100%;
+}
+
+button.mat-raised-button {
+  margin-left: 5px;
+}
+
+.wtandbm {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.full-width {
+  width: 40%;
+  display: block;
+}
+
+.margined {
+  margin: 20px 20px 20px 20px;
+}

@@ -1,0 +1,37 @@
+.full-width {
+  width: 100%;
+  display: block;
+}
+
+.support-request {
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
+  margin-top: 20px;
+  form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    @media (max-width: 990px) {
+      grid-template-columns: 1fr;
+    }
+    textarea {
+      min-height: 400px;
+    }
+    button {
+      grid-column: 2/3;
+      @media (max-width: 990px) {
+        grid-column: 1/2;
+      }
+      .mat-progress-spinner {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        &::ng-deep circle {
+          stroke: white;
+        }
+      }
+    }
+  }
+}

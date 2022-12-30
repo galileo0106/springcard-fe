@@ -1,0 +1,103 @@
+<div *ngIf="isGettingUserInformation">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>
+
+<div *ngIf="!isGettingUserInformation">
+  <mat-card class="support-request">
+    <mat-card-header>
+      <div mat-card-avatar><mat-icon>help</mat-icon></div>
+      <mat-card-title i18n>Request for support</mat-card-title>
+      <mat-card-subtitle i18n>Please fill out the form below to request for help. The required fields are marked.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="supportForm" (ngSubmit)="support()">
+        <div class="content">
+          <mat-form-field class="full-width">
+            <mat-label i18n>First Name</mat-label>
+            <input matInput type="text" name="first_name" formControlName="first_name" required />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <!-- appearance="outline" -->
+            <mat-label i18n>Last Name</mat-label>
+            <input matInput type="text" name="last_name" formControlName="last_name" required />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <!-- appearance="fill" -->
+            <mat-label i18n>Company</mat-label>
+            <input matInput type="text" name="company" formControlName="company" />
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label i18n>Email</mat-label>
+            <input matInput type="email" name="email" formControlName="email" required />
+            <mat-error>
+              <val-errors controlName="email"></val-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label i18n>Source</mat-label>
+            <mat-select formControlName="source">
+              <mat-option *ngFor="let supportsource of sources" value="{{ supportsource }}">{{ supportsource }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label i18n>Product</mat-label>
+            <mat-select formControlName="product">
+              <mat-option *ngFor="let device of devicesList" value="{{ device.title }}">{{ device.title }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <!-- floatLabel="always" floatLabel="never" floatLabel="auto" -->
+            <mat-label i18n>Other product</mat-label>
+            <input matInput type="text" name="other_product" formControlName="other_product" />
+            <mat-error>
+              <val-errors controlName="other_product"></val-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label i18n>Product's Serial Number</mat-label>
+            <input matInput type="text" name="serial_number" formControlName="serial_number" />
+            <mat-error>
+              <val-errors controlName="serial_number"></val-errors>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="full-width">
+            <mat-label i18n>Subject</mat-label>
+            <input matInput type="text" name="subject" formControlName="subject" required />
+            <mat-error>
+              <val-errors controlName="subject"></val-errors>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="content">
+          <mat-form-field class="full-width">
+            <mat-label i18n>Message</mat-label>
+            <textarea matInput name="message" formControlName="message" rows="10" required></textarea>
+            <mat-error>
+              <val-errors controlName="message"></val-errors>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <!--<pre>
+          Dirty? {{ supportForm.controls.other_product.dirty }},
+          Pristine? {{ supportForm.controls.other_product.pristine }},
+          Touched? {{ supportForm.controls.other_product.touched }},
+          Untouched? {{ supportForm.controls.other_product.untouched }},
+          Valid? {{ supportForm.controls.other_product.valid }},
+          Invalid? {{ supportForm.controls.other_product.invalid }}
+        </pre>-->
+        <button mat-flat-button type="submit" color="primary" class="full-width">
+          <ng-container i18n>Ask for support</ng-container
+          ><mat-progress-spinner *ngIf="isAsynk" diameter="20" mode="indeterminate"></mat-progress-spinner>
+        </button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -1,0 +1,15 @@
+/*
+!/e2e
+!/projects
+!/src
+assets/
+browserslist
+package*.json
+*.ico
+*.md
+*.txt
+*.php
+*.bat
+.htaccess
+/src/styles.scss
+*.xlf

@@ -1,0 +1,105 @@
+<app-device-informations
+  [deviceId]="deviceId"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  [blockTitle]="blockTitleLabel"
+  [withFirmwareInformation]="true"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+></app-device-informations>
+
+<span *ngIf="isDownloadingFirmwareList">
+  <h3 class="mat-h3" i18n>Downloading firmwares list</h3>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</span>
+
+<span *ngIf="isValidatingFirmware">
+  <h3 class="mat-h3" i18n>We are validating your firmware, please wait</h3>
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</span>
+
+<app-over-limit [limitLabel]="limitLabel" *ngIf="overLimit"></app-over-limit>
+
+<div class="flash-form " *ngIf="!isDownloadingFirmwareList && !overLimit">
+  <div *ngIf="step === 1">
+    <h1 i18n>Please select the firmware you want to flash into the device:</h1>
+
+    <form [formGroup]="firmwareSelectForm" (ngSubmit)="selectFirmwareSubmit()">
+      <mat-radio-group class="example-radio-group" formControlName="selectedSource">
+        <mat-radio-button class="example-radio-button" value="lastOnline" *ngIf="firmwaresList && firmwaresList.length > 0" i18n
+          >Last version</mat-radio-button
+        >
+        <mat-radio-button class="example-radio-button" value="previousVersion" *ngIf="firmwaresList && firmwaresList.length > 1" i18n
+          >Previous version</mat-radio-button
+        >
+        <mat-radio-button class="example-radio-button" value="localFile" i18n>Local file</mat-radio-button>
+      </mat-radio-group>
+
+      <!-- Depuis la dernière version en ligne -->
+      <div *ngIf="selectedSource() === 'lastOnline' && firmwaresList && firmwaresList.length > 0">
+        <h3 class="mat-h3" i18n>From last version</h3>
+        <p>
+          <strong i18n>Last version: </strong>{{ firmwaresList[0].Vendor }}, {{ firmwaresList[0].Product }},
+          <ng-container i18n>version:</ng-container> {{ firmwaresList[0].Version }}, <ng-container i18n>date: </ng-container
+          >{{ firmwaresList[0].BuildDate | iso8601toJsDate: false }}
+        </p>
+      </div>
+
+      <!-- Depuis une version précédente -->
+      <div *ngIf="selectedSource() === 'previousVersion' && firmwaresList && firmwaresList.length > 0">
+        <h3 class="mat-h3" i18n>From previous version</h3>
+        <mat-form-field class="largeselect">
+          <mat-select formControlName="selectedFirmware" i18n-placeholder placeholder="Firmwares list" required>
+            <!-- prettier-ignore -->
+            <mat-option *ngFor="let firmware of firmwaresList; let index = index" [value]="index">{{ firmware.Vendor }}, {{ firmware.Product }}, <ng-container i18n>version:</ng-container> {{ firmware.Version }}, <ng-container i18n>date: </ng-container>{{ firmware.BuildDate | iso8601toJsDate: false }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <!-- Depuis un fichier local -->
+      <div *ngIf="selectedSource() === 'localFile'">
+        <h3 class="mat-h3" i18n>From a local file</h3>
+        <button mat-raised-button #file class="btn btn-light" i18n>Select file</button>
+        <mat-progress-bar mode="indeterminate" *ngIf="isDownloadingLocalFile"></mat-progress-bar>
+        <div style="display: inline-block">
+          <!-- @ts-ignore -->
+          <input
+            class="upload"
+            #myInput
+            formControlName="file"
+            id="file"
+            name="file"
+            (change)="readLocalFile($event.target.files)"
+            type="file"
+            accept=".bin"
+          />
+          <p class="filenameToUpload">{{ filenameToUpload }}</p>
+        </div>
+      </div>
+
+      <mat-divider class="wtm"></mat-divider>
+
+      <div class="button-row">
+        <button type="submit" mat-raised-button i18n>Next</button>
+      </div>
+    </form>
+  </div>
+
+  <div *ngIf="step === 2">
+    <div *ngIf="isDownloadingDistantFirmware">
+      <h2 class="mat-h2" i18n>Please wait, the firmware is being downloaded</h2>
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </div>
+
+    <div>
+      <div *ngIf="!isDownloadingDistantFirmware"></div>
+      <h1 i18n>Transferring firmware, please wait...</h1>
+      <mat-progress-bar mode="determinate" [value]="flashProgressPercentage"></mat-progress-bar>
+      <p class="wmtm">
+        <strong i18n>Status: </strong> <strong>{{ progressStatus }}</strong>
+      </p>
+    </div>
+
+    <div class="button-row">
+      <button type="button" mat-raised-button (click)="goBack()" [disabled]="!canFinish" i18n>Finish</button>
+    </div>
+  </div>
+</div>

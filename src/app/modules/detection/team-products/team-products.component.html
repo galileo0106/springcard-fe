@@ -1,0 +1,133 @@
+<h1 class="mat-h1" i18n>Your team's products</h1>
+
+<!-- Les messages d'attente  -->
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<!-- La liste des membres de l'équipe -->
+<div class="small-container " *ngIf="teamMembers.length > 0 && !asyncOperation">
+  <form [formGroup]="teamMembersForm">
+    <h4 class="mat-h4" i18n>Select a member of your team</h4>
+    <mat-form-field class="full-width">
+      <mat-label i18n>Select a member of the team to see the products list</mat-label>
+      <mat-select formControlName="members" class="inline" (ngModelChange)="loadMemberProductsList()">
+        <mat-option *ngFor="let member of teamMembers" [value]="member.email"
+          >{{ member.first_name }} {{ member.last_name }} ({{ member.email }})</mat-option
+        >
+      </mat-select>
+    </mat-form-field>
+    <button (click)="exportUserDataToCsv()" mat-raised-button type="button" i18n *ngIf="!asyncOperation && hasDataToExport">Export user data to csv</button>
+  </form>
+</div>
+
+<!-- Quand il n'y a pas de membres dans l'équipe -->
+<div *ngIf="!asyncOperation && teamMembers.length === 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>Except you there's no members in your team.</h1>
+</div>
+
+<!-- Quand il n'y a pas de produits  -->
+<div *ngIf="productsLoaded && userProducts.length === 0">
+  <br /><br />
+  <h1 class="mat-h1" i18n>This user does not have any product for this moment.</h1>
+</div>
+
+<!-- La liste des configurations de l'utilisateur -->
+<div class="example-container " *ngIf="!asyncOperation && userProducts.length > 0">
+  <mat-table #table [dataSource]="productsDataSource">
+    <ng-container matColumnDef="product">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Product</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.product_title }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="firmware">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Firmware</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.product_firmware }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="hardware">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Hardware</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.product_hardware }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="unique_id">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Unique ID</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.UniqueId }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_seen">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Last seen</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.last_seen | iso8601toJsDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="first_seen">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>First seen</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.created | iso8601toJsDate }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="config_id">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Config ID</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.ConfigId }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="version">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Firmware version</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.version }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="inventory">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Inventory</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.inventory }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="location">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Location</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.location }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="frozen_firmware">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Frozen firmware?</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.frozen_firmware | yesNo }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

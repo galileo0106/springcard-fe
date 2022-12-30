@@ -1,0 +1,37 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "paths": {
+      "@shared/*": ["src/app/modules/shared/*"],
+      "@matcomponents/*": ["src/app/modules/mat-components/*"],
+      "@core/*": ["src/app/modules/core/*"],
+      "@configurations/*": ["src/app/modules/shared/configurations/*"],
+      "@billing/*": ["src/app/modules/shared/billing/*"]
+    },
+    "types": ["node"],
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2020",
+    "typeRoots": ["node_modules/@types"],
+    "module": "es2020",
+    "lib": ["es2018","dom"],
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
+  },
+  "angularCompilerOptions": {
+    "enableI18nLegacyMessageIdFormat": false,
+  }
+}

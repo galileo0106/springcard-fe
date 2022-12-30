@@ -1,0 +1,99 @@
+<div *ngFor="let oneButton of buttonsList" class="button-row">
+  <button
+    *ngIf="oneButton.type == 'raised-button'"
+    mat-raised-button
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <span>{{ oneButton.label }}</span>
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'button'"
+    mat-button
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    {{ oneButton.label }}
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'icon-button'"
+    mat-icon-button
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    matTooltip="{{oneButton.tooltip}}"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'raised-icon-with-text'"
+    mat-raised-button
+    [matBadge]="warnUser && oneButton.id === 'SYSTEM_user_account' ? '!' : ''"
+    [matBadgeColor]="warnUser && oneButton.id === 'SYSTEM_user_account' ? 'accent' : ''"
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+    {{ oneButton.label }}
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'button-icon-with-text'"
+    mat-button
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <mat-icon aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+    {{ oneButton.label }}
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'fab'"
+    mat-fab
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <mat-icon *ngIf="oneButton.icon" aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+    <span *ngIf="!oneButton.icon">{{ oneButton.label }}</span>
+  </button>
+
+  <button
+    *ngIf="oneButton.type == 'mini-fab'"
+    mat-mini-fab
+    color="{{ oneButton.color }}"
+    class="with-left-space"
+    (click)="buttonClick(oneButton.label, oneButton.id)"
+  >
+    <mat-icon *ngIf="oneButton.icon" aria-label="oneButton.label">{{ oneButton.icon }}</mat-icon>
+    <span *ngIf="!oneButton.icon">{{ oneButton.label }}</span>
+  </button>
+
+  <button
+    *ngIf="currentLocale && oneButton.type == 'language_button'"
+    mat-button
+    [matMenuTriggerFor]="languageMenu"
+    class="with-left-space"
+    color="{{ oneButton.color }}"
+  >
+    <img [src]="oneButton.icon" [alt]="oneButton.label" class="flag"/>
+    {{oneButton.label}}
+  </button>
+</div>
+
+<mat-menu #languageMenu="matMenu" xPosition="before">
+  <div *ngFor="let locale of locales">
+    <button mat-menu-item class="menu-item" (click)="languageSwitch(locale)">
+      <a [href]="url"
+        ><img [src]="locale.countryFlag" /> <span>{{ locale.label }}</span></a
+      >
+    </button>
+  </div>
+</mat-menu>

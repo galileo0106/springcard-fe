@@ -1,0 +1,194 @@
+<div class="profile-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <ng-container *ngIf="!isTeamAccount && createAccount">
+          <img src="assets/svg/logo-icon.svg" alt="springcard companion" width="50px" />
+          <h1 i18n>Welcome to SpringCard Companion</h1>
+        </ng-container>
+        <ng-container i18n *ngIf="!isTeamAccount && !createAccount">Profile details</ng-container>
+        <ng-container i18n *ngIf="isTeamAccount">Profile details</ng-container>
+      </mat-card-title>
+      <mat-card-subtitle i18n *ngIf="createAccount && !isTeamAccount">You are ready to start using SpringCard Companion for free. No credit card or payment mean is required.</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-header *ngIf="showErrorDiv">
+      <mat-card-title>
+        <p>
+          <ng-container i18n>We are sorry but there was an error during the creation or update of your account, </ng-container>
+          <a href="https://www.springcard.com/en/contact" target="_blank">
+            <ng-container i18n>please contact us</ng-container>
+          </a>
+        </p>
+      </mat-card-title>
+    </mat-card-header>
+    <!-- <mat-card-header *ngIf="asyncOperation">
+      <mat-card-title>
+        <mat-progress-spinner color="warn" mode="indeterminate" diameter="35"></mat-progress-spinner>
+        <h2 i18n>Please wait...</h2>
+      </mat-card-title>
+    </mat-card-header> -->
+    <mat-card-content *ngIf="!registerOk && !showErrorDiv">
+      <form [formGroup]="registerForm" (ngSubmit)="save()">
+        <mat-form-field>
+          <mat-label i18n>First Name</mat-label>
+          <input matInput type="text" name="first_name" formControlName="first_name" required />
+          <mat-error>
+            <val-errors controlName="first_name"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label i18n>Last Name</mat-label>
+          <input matInput type="text" name="last_name" formControlName="last_name" required />
+          <mat-error>
+            <val-errors controlName="last_name"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+          <mat-label i18n>Company</mat-label>
+          <input matInput type="text" name="company" formControlName="company" />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+          <mat-label i18n>International V.A.T. number</mat-label>
+          <input matInput type="text" name="vat" formControlName="vat" />
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+          <mat-label i18n>Country</mat-label>
+          <mat-select formControlName="country" required>
+            <mat-option *ngFor="let country of countries" value="{{ country.code }}">{{ country.name }}</mat-option>
+          </mat-select>
+          <mat-error>
+            <val-errors controlName="country"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="!isTeamAccount || (isTeamAccount && !createAccount)">
+          <mat-label i18n>Phone number</mat-label>
+          <input matInput type="tel" name="phone" formControlName="phone" required />
+          <mat-error>
+            <val-errors controlName="phone"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAccount || (isTeamAccount && !createAccount)" class="grid-column-2">
+          <mat-label i18n>Email</mat-label>
+          <input matInput type="email" name="email" formControlName="email" required />
+          <mat-error>
+            <val-errors controlName="email"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAccount && !isTeamAccount">
+          <mat-label i18n>Password (8 chars min)</mat-label>
+          <input matInput type="password" name="password" formControlName="password" required minlength="8" />
+          <mat-error>
+            <val-errors controlName="password"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field *ngIf="createAccount && !isTeamAccount">
+          <mat-label i18n>Password confirm (8 chars min)</mat-label>
+          <input matInput type="password" name="passwordconfirmation" formControlName="passwordconfirmation" required minlength="8" />
+          <mat-error>
+            <val-errors controlName="passwordconfirmation"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <div *ngIf="createAccount && !isTeamAccount" class="grid-column-2 mt-1">
+          <mat-label id="subscribe_newsletter" i18n>Do you want to subscribe to our newsletter? *</mat-label>
+          <mat-radio-group aria-labelledby="subscribe_newsletter" formControlName="newsletter" required>
+            <mat-radio-button value="0" i18n>No</mat-radio-button>
+            <mat-radio-button value="1" i18n>Yes</mat-radio-button>
+          </mat-radio-group>
+          <mat-error>
+            <val-errors controlName="newsletter"></val-errors>
+          </mat-error>
+        </div>
+
+        <mat-form-field *ngIf="createAccount && !isTeamAccount" class="grid-column-2">
+          <mat-label i18n>I use the SpringCard products for</mat-label>
+          <input matInput type="text" name="products_used_for" formControlName="products_used_for" />
+        </mat-form-field>
+
+        <div *ngIf="createAccount && !isTeamAccount" class="grid-column-2">
+          <mat-checkbox formControlName="accept_conditions" i18n
+            >I confirm that I've read and agreed with the terms and conditions of use</mat-checkbox
+          >
+          <mat-error>
+            <val-errors controlName="accept_conditions"></val-errors>
+          </mat-error>
+        </div>
+
+        <div *ngIf="isTeamAccount" class="grid-column-2">
+          <mat-label id="lbl_is_admin">
+            <ng-container i18n>Set as admin</ng-container>
+          </mat-label>
+          <mat-radio-group aria-labelledby="lbl_is_admin" formControlName="admin">
+            <mat-radio-button value="true">
+              <ng-container i18n>Yes</ng-container>
+            </mat-radio-button>
+            <mat-radio-button value="false">
+              <ng-container i18n>No</ng-container>
+            </mat-radio-button>
+          </mat-radio-group>
+        </div>
+
+        <p *ngIf="createAccount && !isTeamAccount" class="grid-column-2">
+          <a mat-list-item routerLink="/welcome" i18n>Privacy policy, terms and conditions of use</a>
+        </p>
+
+        <button mat-flat-button type="submit" *ngIf="createAccount && !isTeamAccount" class="grid-column-2 m-1" color="primary">
+          <mat-icon *ngIf="isRegistering">
+            <mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner>
+          </mat-icon>
+          <ng-container i18n>Register</ng-container>
+        </button>
+        <button
+          mat-flat-button
+          type="submit"
+          [disabled]="registerForm.invalid && !acceptConditionsChecked()"
+          *ngIf="createAccount && isTeamAccount"
+          class="grid-column-2 m-1"
+          color="primary"
+        ><mat-icon *ngIf="isInviting"><mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner></mat-icon>
+        <ng-container i18n>Invite</ng-container></button>
+        <div class="additional_actions grid-column-2" *ngIf="createAccount && !isTeamAccount">
+          <div class="sub_action">
+            <p i18n>Already registered?</p>
+            <a i18n class="action_btn" (click)="goBackToLogin()">Login now</a>
+          </div>
+        </div>
+        <button
+          mat-flat-button
+          type="submit"
+          [disabled]="registerForm.invalid || !registerForm.dirty"
+          *ngIf="!createAccount"
+          class="grid-column-2 m-1"
+          color="primary"
+        ><mat-icon *ngIf="isSaving"><mat-progress-spinner diameter="20" mode="indeterminate"></mat-progress-spinner></mat-icon>
+        <ng-container i18n>Save Profile</ng-container></button>
+        <button
+          mat-stroked-button
+          type="button"
+          (click)="cancelEdition(false)"
+          *ngIf="!createAccount || isTeamAccount"
+          i18n
+          class="grid-column-2 m-1"
+        >Cancel</button>
+      </form>
+    </mat-card-content>
+    <mat-card-content class="after_reset" *ngIf="registerOk">
+      <p i18n>Thank you for registering, <strong>{{ registerForm.value.first_name }} {{ registerForm.value.last_name }}.</strong><br />
+        An activation email has been sent to <strong>{{ registerForm.value.email }}</strong
+        >. Please click the activation link in the email to continue activation.</p>
+      <p i18n>If you have not received this email after a few minutes, please check your spam folder. Contact
+        <a class="action_btn">our support team</a> if the problem persists.</p>
+      <div class="additional_actions">
+        <button mat-stroked-button class="back_btn m-1" (click)="goBackToLogin()" i18n>Back to login</button>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

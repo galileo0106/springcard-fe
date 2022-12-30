@@ -1,0 +1,32 @@
+<app-device-informations
+  [deviceId]="deviceId"
+  [readerId]="readerId"
+  icon="network_check"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  [blockTitle]="blockTitleLabel"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+></app-device-informations>
+
+<div class="example-container ">
+  <mat-table #table [dataSource]="dataSource">
+    <ng-container matColumnDef="timestamp">
+      <mat-header-cell *matHeaderCellDef i18n>When</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.timestamp }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="event">
+      <mat-header-cell *matHeaderCellDef i18n>Event</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.event }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="params">
+      <mat-header-cell *matHeaderCellDef i18n>Data</mat-header-cell>
+      <mat-cell *matCellDef="let element" class="withPointer" (click)="openEventDetails(element.event, element.params, element.timestamp)">
+        <span i18n-matTooltip matTooltip="Click to see details">{{ element.params | json | displayableJson }}</span>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

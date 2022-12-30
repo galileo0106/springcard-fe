@@ -1,0 +1,22 @@
+<style>
+  .mat-dialog-title {
+    display: flex !important;
+
+  }
+  .mat-dialog-title .mat-icon {
+    margin-right: 5px
+  }
+</style>
+<h1 mat-dialog-title><mat-icon>credit_card</mat-icon><ng-container> i18n>Select slot</ng-container></h1>
+<mat-dialog-content>
+  <mat-form-field style="display: block">
+    <mat-label i18n>Reader</mat-label>
+    <mat-select [(ngModel)]="data.readerId">
+      <mat-option *ngFor="let reader of data.readersList" [value]="reader.readerId">{{reader.readerName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] (click)="setValidationState(true)" color="primary" cdkFocusInitial i18n>Ok</button>
+  <button mat-button [mat-dialog-close] (click)="setValidationState(false)" i18n>Cancel</button>
+</mat-dialog-actions>

@@ -1,0 +1,80 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  mat-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 400px;
+    padding: 50px 30px 20px;
+    mat-card-header {
+      mat-card-title {
+        display: flex;
+        align-items: center;
+        h1 {
+          margin: 0;
+        }
+      }
+    }
+    mat-card-content {
+      display: grid;
+      gap: 20px;
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        .require_alert {
+          background-color: rgba(0, 0, 0, 0.1);
+          font-size: 'Nunito' !important;
+          display: flex;
+          padding: 10px 0px;
+          justify-content: center;
+          align-items: center;
+        }
+        .login_btn {
+          display: flex;
+          justify-content: center;
+          .mat-progress-spinner::ng-deep circle {
+            stroke: white;
+          }
+        }
+      }
+      .social_text {
+        margin-top: 20px;
+        font-size: 16px;
+        text-align: center;
+        font-family: 'Nunito' !important;
+      }
+      .social_buttons {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        button {
+          border: 1px solid rgba(0, 0, 0, 0.12);
+        }
+        fa-icon {
+          color: #d80a1d;
+        }
+      }
+      .additional_actions {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+      }
+      .sub_action {
+        display: flex;
+        gap: 5px;
+      }
+      .action_btn {
+        color: #d80a1d;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}

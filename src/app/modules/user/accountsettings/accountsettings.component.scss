@@ -1,0 +1,91 @@
+mat-card {
+  mat-card-header {
+    max-width: 700px;
+    .item_icon {
+      display: flex;
+      width: 40px;
+      justify-content: center;
+    }
+    
+    fa-icon {
+      vertical-align: middle;
+    } 
+  }
+  mat-card-content {
+    display: grid;
+    gap: 20px;
+    max-width: 700px;
+    form {
+      margin-left: 60px;
+    }
+    .general_form {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+  
+    .details_form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .readonly-select {
+        cursor: not-allowed;
+        pointer-events: none;
+      }
+      .mat-progress-spinner::ng-deep circle {
+        stroke: white;
+      }
+    }
+  
+    .subscription_form {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      .mat-mdc-radio-button ~ .mat-mdc-radio-button {
+        margin-left: 16px;
+      }
+      .radioSelect {
+        display: flex;
+        flex-direction: row;
+        gap: 0px 16px;
+      }
+      mat-radio-group  {
+        display: flex;
+        flex-direction: row;
+        gap: 0px 16px;
+        margin: 0px;
+      }
+      .sub_content {
+        display: flex;
+        flex-direction: row;
+        gap: 0px 30px;
+        align-items: flex-end;
+        .form_content {
+          display: flex;
+          flex-direction: column;
+          gap: 5px;
+        }
+        .extra_text {
+           width: 400px;
+        }
+      }
+      .team_form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  
+    h2 {
+      margin: 0px;
+    }
+  
+    button {
+      margin-left: 30px;
+    }
+  
+    mat-form-field {
+      width: 300px;
+    }
+  }
+}

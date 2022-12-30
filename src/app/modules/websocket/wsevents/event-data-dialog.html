@@ -1,0 +1,47 @@
+<style>
+  .newLine {
+    white-space: pre-line;
+  }
+  .key {
+    vertical-align: top;
+  }
+  table {
+    table-layout: fixed;
+  }
+  td.left {
+    width: 30%;
+  }
+  td.key.left {
+    width: 30%;
+  }
+</style>
+<h1 mat-dialog-title>{{data.dataTitle}}</h1>
+<div mat-dialog-content>
+  <table>
+    <tbody>
+      <tr>
+        <td class="left" i18n>From:</td>
+        <td>{{data.dataDeviceName}} {{data.dataDeviceSerialNumer}}</td>
+      </tr>
+      <tr>
+        <td class="left" i18n>When:</td>
+        <td>{{data.dataWhen}}</td>
+      </tr>
+      <tr>
+        <td class="left" i18n>Event:</td>
+        <td>{{data.dataEventTitle}}</td>
+      </tr>
+      <tr>
+        <th class="left" i18n>Key</th>
+        <th i18n>Value</th>
+      </tr>
+      <tr *ngFor="let data of data.dataEvent | json | jsonToArray:true">
+        <td class="key left">{{data.key}}</td>
+        <td class="newLine">{{data.value}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close] cdkFocusInitial i18n>Ok</button>
+</div>

@@ -1,0 +1,217 @@
+<app-device-informations
+    [deviceId]="deviceId"
+    (deviceLoaded)="getDeviceFromComponent($event)"
+    blockTitle="Change data of "
+    withFirmwareInformation="false"
+    (loadingDeviceFailed)="deviceLoadFailed()">
+</app-device-informations>
+
+<div *ngIf="asyncOperation">
+    <h2 class="mat-h2"><ng-container i18n>Please wait</ng-container> {{currentAsyncOperationTitle}}</h2>
+    <div fxLayout fxLayoutAlign="center center">
+        <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+    </div>
+</div>
+
+<mat-card *ngIf="!asyncOperation">
+    <mat-card-content>
+        <form [formGroup]="configurationForm">
+                        <mat-expansion-panel class="panel" id="id7633_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Inventory data</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Inventory number</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>A free-use string to store the product's ID in your inventory database.</p></ng-container>
+            <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Inventory number</ng-container></mat-label>        <input matInput type="text" formControlName="reg0201"
+              maxlength="16" >
+            <mat-error>
+            <val-errors controlName="reg0201"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Location</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>A free-use string to store the product's location.</p></ng-container>
+            <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Location</ng-container></mat-label>        <input matInput type="text" formControlName="reg0202"
+              maxlength="16" >
+            <mat-error>
+            <val-errors controlName="reg0202"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+                        <mat-expansion-panel class="panel" id="id7642_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Integrator&#039;s license</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">License key</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register is available to store an application-specific license key or license number. See the <a href="License_cryptogram">license cryptogram</a> paragraph for details.</p></ng-container>
+            <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">License key</ng-container></mat-label>        <input matInput type="text" formControlName="reg0209"
+              maxlength="32" >
+            <mat-error>
+            <val-errors controlName="reg0209"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">License cryptogram</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register is available to store a proof that the <a href="Application_name">Application name</a> and <a href="License_key">License key</a> are genuine.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Integrators and solution providers are welcomed to create a bundle tying the product to an accompanying software. This register may store a proof that the product has been personalized by the provider of the software. An easy way to do so is to compute an HMAC over the product's serial number, the Application Name and the Application License. The application may verify the HMAC (provided that it knows the secret key used to compute it). This register has a size of 32 bytes, which allows to use HMAC-SHA256.</p></ng-container>
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">License cryptogram</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg020a"
+           minlength="0"   maxlength="64" >
+            <mat-error>
+            <val-errors controlName="reg020a"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+<ng-container i18n="_multiconf_"><p>Pay attention that this register may normally be updated by the user. Set appropriate values in the <a href="../Security/Access_Conditions">Access Conditions</a> register to protect it against unwanted changes.</p></ng-container>
+</div>
+
+    </mat-expansion-panel>
+                        <mat-expansion-panel class="panel" id="id7653_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration of the network interface</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">IPv4 Settings</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Defines the product's IPv4 address, network mask, gateway and dns, or enables DHCP.</p></ng-container>
+                            <div class="mat-form-field-wrapper">
+                    <mat-label id="ipconfig_label"><ng-container i18n="_multiconf_">Select configuration method:</ng-container></mat-label>
+                    <mat-radio-group aria-labelledby="ipconfig_label" class="mat-radio-group" formControlName="dhcpStatic_0280">
+                        <mat-radio-button class="mat-radio-button" value="dhcp" i18n="_multiconf_">DHCP</mat-radio-button>
+                        <mat-radio-button class="mat-radio-button" value="static" i18n="_multiconf_">Static</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div *ngIf="formsUtilsService.showHideFormGroup(configurationForm, 'dhcpStatic_0280', 'static')">
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Network address (`00000000` to enable DHCP)</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">IPv4 format</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0280_555555y"
+   pattern="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"            >
+            <mat-error>
+            <val-errors controlName="reg0280_555555y"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Network mask  (`FFFFFF00` for a class C subnet)</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">IPv4 format</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0280_vqlq6ky"
+   pattern="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"            >
+            <mat-error>
+            <val-errors controlName="reg0280_vqlq6ky"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Default gateway (`00000000` to disable routing)</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">IPv4 format</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0280_s25rcml"
+   pattern="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"            >
+            <mat-error>
+            <val-errors controlName="reg0280_s25rcml"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">1st name server</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">IPv4 format</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0280_qocj7wy"
+   pattern="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"            >
+            <mat-error>
+            <val-errors controlName="reg0280_qocj7wy"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">2nd name server</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">IPv4 format</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0280_rxuj7ed"
+   pattern="[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+"            >
+            <mat-error>
+            <val-errors controlName="reg0280_rxuj7ed"></val-errors>
+        </mat-error>
+    </mat-form-field>
+                            </div> <!-- div fermant la configuration IP -->
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">IPv6 Settings</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Defines the product's IPv6 address, DHCPv6.</p></ng-container>
+                <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">IPv6 Settings</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="reg0281"
+           minlength="32"   maxlength="32" >
+            <mat-error>
+            <val-errors controlName="reg0281"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+                        <mat-expansion-panel class="panel" id="id7666_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Security-related configuration</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">User password</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>User password to protect console (serial and telnet) accesses to the product. See <a href="Access_Conditions">Access Conditions</a>.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>If both User Password and <a href="Admin_Password">Admin Password</a> have the same value, the product assumes that <a href="Admin_Password">Admin Password</a> is entered.</p></ng-container>
+            <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">User password</ng-container></mat-label>        <input matInput type="text" formControlName="reg02fe"
+              maxlength="16" >
+            <mat-error>
+            <val-errors controlName="reg02fe"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+        <div  class="register">
+<h1><ng-container i18n="_multiconf_">Admin password</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Admin password to protect console (serial and telnet) accesses to the product. See <a href="Access_Conditions">Access Conditions</a>.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>If both <a href="User_Password">User Password</a> and Admin Password have the same value, the product assumes that Admin Password is entered.</p></ng-container>
+            <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">Admin password</ng-container></mat-label>        <input matInput type="text" formControlName="reg02ff"
+              maxlength="16" >
+            <mat-error>
+            <val-errors controlName="reg02ff"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+    </mat-expansion-panel>
+                        <mat-expansion-panel class="panel" id="id7677_Node" >
+    <mat-expansion-panel-header>
+        <mat-panel-title i18n="_multiconf_">Configuration of the Bluetooth interface</mat-panel-title>
+        <mat-panel-description i18n="_multiconf_"></mat-panel-description>
+    </mat-expansion-panel-header>
+        
+    <div  class="register">
+        <h1><ng-container i18n="_multiconf_">User Device Name</ng-container></h1>
+        
+        <ng-container i18n="_multiconf_"><p>A user-defined name to override the default Device Name used for BLE advertising.</p></ng-container>
+                    <mat-form-field class="full-width"  appearance="fill" color="primary">        <mat-label><mat-icon>label</mat-icon> <ng-container i18n="_multiconf_">User Device Name</ng-container></mat-label>        <input matInput type="text" formControlName="reg0244"
+                      maxlength="29" >
+                    <mat-error>
+                    <val-errors controlName="reg0244"></val-errors>
+                </mat-error>
+            </mat-form-field>
+                    
+</div>
+    </mat-expansion-panel>
+                    </form>
+    </mat-card-content>
+    <mat-card-actions>
+        <mat-error class="bottom" *ngIf="configurationForm.invalid">
+            <ng-container i18n>The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</ng-container>
+        </mat-error>
+        <button *ngIf="configurationForm.valid && configurationForm.dirty" mat-raised-button (click)="apply()" i18n>Apply to device</button>
+    </mat-card-actions>
+</mat-card>
+<br /><br />

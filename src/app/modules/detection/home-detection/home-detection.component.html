@@ -1,0 +1,181 @@
+<div class="flex-col-gap-10">
+  <ng-container *ngIf="!errorWhileDetecting">
+    <mat-card class="header-container">
+      <h1 i18n *ngIf="deviceType === 'online'">Online Devices</h1>
+      <h1 i18n *ngIf="deviceType === 'binding'">Binding Devices</h1>
+      <div class="actions-container" *ngIf="deviceType === 'online'">
+        <button mat-flat-button color="primary" (click)="openDialog('serial')" [disabled]="errorGettingSerialPorts || !IsSerialEnabled" i18n>Find Serial...</button>
+        <button mat-flat-button color="primary" (click)="openDialog('network')" [disabled]="errorGettingIpAddressArray || !IsNetworkEnabled" i18n>Find Network...</button>
+      </div>
+    </mat-card>
+
+    <mat-progress-bar *ngIf="!devicesDetected" color="primary" mode="indeterminate"></mat-progress-bar>
+
+    <ng-container *ngIf="devicesDetected">
+      <mat-card *ngFor="let device of $any(devices$)">
+        <mat-card-header>
+          <mat-card-title>
+            <div class="icons">
+              <img *ngIf="getDeviceIcon(device, 1) !== 'blank'" src="assets/img/icons/{{getDeviceIcon(device, 1)}}.svg" />
+              <img *ngIf="getDeviceIcon(device, 2) !== 'blank'" src="assets/img/icons/{{getDeviceIcon(device, 2)}}.svg" />
+              <img *ngIf="getDeviceIcon(device, 3) !== 'blank'" src="assets/img/icons/{{getDeviceIcon(device, 3)}}.svg" />
+            </div>
+            <ng-container *ngIf="!device.FriendlyName">{{ device.Name }}</ng-container>
+            <ng-container *ngIf="device.FriendlyName">{{ device?.FriendlyName }}</ng-container>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="device-infor-container">
+            <div class="device-infor-items">
+              <div class="item">
+                <label i18n>Serial Number</label>
+                <p *ngIf="device.SerialNumber">{{ device?.SerialNumber }}</p>
+              </div>
+              <div class="item" *ngIf="device.Version">
+                <label i18n>Version</label>
+                <p
+                  *ngIf="device.isThisAKnownProduct() && device.deviceHasAFirmwareUpdate()"
+                  matTooltip="A new release is available! Upgrade"
+                  color="primary"
+                  (click)="flashReader(device.DeviceId)"
+                  class="upgrade"
+                >
+                  <ng-container>{{ device.Version }}</ng-container>
+                  <mat-icon>priority_high</mat-icon>
+                </p>
+                <p *ngIf="!(device.isThisAKnownProduct() && device.deviceHasAFirmwareUpdate())">
+                  {{ device.Version }}
+                </p>
+              </div>
+              <div class="item">
+                <label i18n>Channel</label>
+                <p *ngIf="device.Channel">{{ device.Channel | uppercase }}</p>
+                <p *ngIf="!device.Channel" i18n>Unknown</p>
+              </div>
+              <div class="item">
+                <label i18n>Mode</label>
+                <p *ngIf="device.Mode">{{ device.Mode | uppercase }}</p>
+                <p *ngIf="!device.Mode" i18n>Unknown</p>
+              </div>
+              <div class="item" *ngIf="device.Inventory">
+                <label i18n>Inventory #</label>
+                <p>{{ device.Inventory }}</p>
+              </div>
+            </div>
+            <div class="device-infor-items">
+              <div class="grid-col-1-5" *ngIf="device.isThisAKnownProduct()">
+                <label i18n>Configuration:</label>
+                <p>{{ device.UniqueId }}</p>
+              </div>
+              <div class="grid-col-5-6" *ngIf="device.Location">
+                <label i18n>Location:</label>
+                <p>{{ device.Location }}</p>
+              </div>
+            </div>
+            <div class="device-infor-items" *ngIf="device.Pcsc">
+              <div class="item" *ngIf="device.CommPort">
+                <label i18n>Serial port:</label>
+                <p>{{ device.CommPort }}</p>
+                <label i18n>Not connected TBD</label>
+                <button mat-button color="warn" i18n>Terminal</button>
+              </div>
+              <div class="item" *ngIf="device.HidInstance">
+                <label i18n>Serial port:</label>
+                <p>{{ device.HidInstance }}</p>
+              </div>
+              <div class="item" *ngIf="device.PhysAddress">
+                <label i18n>Physical address:</label>
+                <p>{{ device.PhysAddress }}</p>
+              </div>
+              <div class="item" *ngIf="device.IpAddress">
+                <label i18n>IP v4 address:</label>
+                <p>{{ device.IpAddress }}</p>
+              </div>
+              <div class="item" *ngIf="device.IpAddress6">
+                <label i18n>Ip v6 address:</label>
+                <p>{{ device.IpAddress6 }}</p>
+              </div>
+            </div>
+            <div *ngIf="device.Pcsc" class="device-infor-items pcsc">
+              <label i18n>Readers</label>
+              <div class="grid-col-2-6">
+                <div class="items" *ngFor="let pcscReader of device.Pcsc.Names; let index = index">
+                  <label>{{ pcscReader }}</label>
+                  <button mat-menu-item (click)="cardAnalysis(device.DeviceId, device.Pcsc.ReaderIds[index])" i18n>Card analysis</button>
+                  <button mat-menu-item (click)="scriptor(device.DeviceId, device.Pcsc.ReaderIds[index])" i18n>Scriptor</button>
+                  <!-- device.isInReaderMonde() &&  -->
+                  <button *ngIf="isWebsocketUsed" mat-menu-item (click)="wsevents(device.DeviceId, device.Pcsc.ReaderIds[index])" i18n>Events</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="actions-container">
+            <button
+              *ngIf="device.isThisAKnownProduct()"
+              mat-stroked-button
+              color="primary"
+              (click)="winkDevice(device.DeviceId)"
+              class="full-width"
+            >
+              <ng-container i18n>Wink</ng-container>
+            </button>
+            <button mat-stroked-button color="primary" [matMenuTriggerFor]="actions" class="full-width">Actions</button>
+            <mat-menu #actions="matMenu">
+              <button
+                *ngIf="device.isThisAKnownProduct() && device.hasIndividualsRegisters()"
+                mat-menu-item
+                (click)="configureIndividuals(device.DeviceId)"
+                i18n
+              >Change device data</button>
+              <button (click)="configureDevice(device)" mat-menu-item i18n>Configure device</button>
+              <button *ngIf="device.isThisAKnownProduct()" mat-menu-item color="primary" (click)="flashReader(device.DeviceId)">
+                <ng-container i18n>Flash</ng-container>
+              </button>
+              <button
+                *ngIf="device.lastConfigurationId && device.lastConfigurationId > 0"
+                (click)="inspectDeviceConfiguration(device, device.lastConfigurationId)"
+                mat-menu-item
+                i18n
+              >Inspect configuration</button>
+              <button *ngIf="device.isInReaderMonde()" mat-menu-item (click)="wsevents(device.DeviceId)">
+                <ng-container i18n>Events</ng-container>
+              </button>
+              <button
+                *ngIf="device.isInReaderMonde() && isWebsocketUsed"
+                mat-menu-item
+                (click)="changeReaderStatus(device.DeviceId, 'start')"
+              >
+                <ng-container i18n>Start device</ng-container>
+              </button>
+              <button
+                *ngIf="device.isInReaderMonde() && isWebsocketUsed"
+                mat-menu-item
+                (click)="changeReaderStatus(device.DeviceId, 'stop')"
+              >
+                <ng-container i18n>Stop device</ng-container>
+              </button>
+              <ng-container *ngIf="device.Binding !== 'pnp'">
+                <button *ngIf="device.Binding === 'not-bound'" mat-menu-item (click)="addBinding(device.DeviceId)">
+                  <ng-container i18n>Add Binding</ng-container>
+                </button>
+                <button *ngIf="device.Binding === 'bound'" mat-menu-item (click)="deleteBinding(device.DeviceId)">
+                  <ng-container i18n>Delete Binding</ng-container>
+                </button>
+              </ng-container>
+              <button mat-menu-item (click)="beepReader(device.DeviceId)"><ng-container i18n>Beep</ng-container></button>
+              <!-- <button mat-button (click)="paypal()">
+              <mat-icon aria-label="Flash" [inline]="true">flash_on</mat-icon>
+              <ng-container i18n>Paypal</ng-container>
+            </button> -->
+            </mat-menu>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="errorWhileDetecting">
+    <h2 i18n>There was an error while detecting your devices</h2>
+    <p>{{ errorMessage }}</p>
+  </ng-container>
+</div>

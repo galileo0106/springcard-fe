@@ -1,0 +1,68 @@
+.full-width {
+  width: 50% !important;
+  display: block !important;
+}
+
+.mat-header-row {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.small-container {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  /*height: 90%;
+    max-height: 90%;*/
+  min-width: 300px;
+  margin-top: 15px;
+}
+
+.mat-table {
+  overflow: auto;
+  max-height: 100%;
+  height: 100%;
+}
+
+mat-header-cell {
+  font-weight: bold;
+}
+
+.online {
+  display: inline;
+}
+
+.left-spaced {
+  margin-left: 25px;
+}
+
+mat-radio-group.inline {
+  display: inline;
+}
+
+mat-radio-button.mat-radio-button-spaced {
+  margin-left: 15px;
+}
+
+mat-form-field.full-width.inline {
+  display: inline;
+  max-width: 200px;
+}
+
+mat-select.inline {
+  display: inline;
+}
+
+.spaced {
+  margin-bottom: 20px;
+}

@@ -1,0 +1,99 @@
+<h1 i18n>Team members</h1>
+
+<div *ngIf="asyncOperation">
+  <h2 i18n>Please wait</h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="warn" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<div *ngIf="!asyncOperation && !addingNewUser">
+  <mat-table #table [dataSource]="membersDataSource">
+    <ng-container matColumnDef="full_name">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Name</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="actionOnProfile(element.email, 'delete')">
+            <mat-icon>delete</mat-icon><span i18n>Delete</span>
+          </button>
+
+          <button mat-menu-item (click)="actionOnProfile(element.email, 'admin')">
+            <mat-icon>supervisor_account</mat-icon><span i18n *ngIf="element.is_admin_of_team">Remove as admin</span
+            ><span i18n *ngIf="!element.is_admin_of_team">Set as admin</span>
+          </button>
+        </mat-menu>
+        {{ element.first_name }} {{ element.last_name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Email</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.email }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="is_admin_of_team">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Admin ?</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container>{{ element.is_admin_of_team | yesNo }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Created</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.created | iso8601toJsDate: false }} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="last_connection">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Last connection</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <ng-container *ngIf="element.last_connection">{{ element.last_connection | iso8601toJsDate }}</ng-container>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="configurations_count">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Configurations count</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.configurations_count }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="devices_count">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Devices count</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.devices_count }}</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="flash_count">
+      <mat-header-cell *matHeaderCellDef>
+        <ng-container i18n>Devices flashed count</ng-container>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let element">{{ element.flash_count }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{ isAdmin: row.is_admin_of_team }"></mat-row>
+  </mat-table>
+</div>
+
+<app-profile
+  [createAccount]="isCreationgNewAccount"
+  [isTeamAccount]="true"
+  [existingUserProfile]="userProfile"
+  (canHideComponent)="canHideEditingProfile()"
+  *ngIf="addingNewUser"
+>
+</app-profile>

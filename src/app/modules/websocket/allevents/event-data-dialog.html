@@ -1,0 +1,33 @@
+<style>
+  .mat-dialog-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+  }
+  p {
+    margin: 0;
+  }
+  h4 {
+    margin: 0;
+  }
+</style>
+<h1 mat-dialog-title i18n>Event detail</h1>
+<mat-dialog-content>
+  <p i18n>When:</p>
+  <h4>{{data.dataWhen}}</h4>
+
+  <p i18n>Event:</p>
+  <h4>{{data.dataEventTitle}}</h4>
+
+  <p><strong i18n>Key</strong></p>
+  <p><strong i18n>Value</strong></p>
+
+  <ng-container *ngFor="let data of data.dataEvent | json | jsonToArray:true">
+    <p>{{data.key}}</p>
+    <h4>{{data.value}}</h4>
+  </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] cdkFocusInitial color="primary" i18n>Ok</button>
+</mat-dialog-actions>

@@ -1,0 +1,57 @@
+.pricing-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  mat-card {
+    width: 100%;
+    max-width: 1200px;
+    mat-card-header {
+      mat-card-title {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        h1 {
+          margin: 0;
+        }
+      }
+      mat-card-subtitle {
+        h3 {
+          margin: 0;
+        }
+      }
+    }
+    mat-card-content {
+      table {
+        width: 100%;
+        tfoot {
+          td {
+            border-bottom: none;
+          }
+        }
+        td,
+        th {
+          padding: 5px 0;
+          border-bottom: 1px solid #d9d9d9;
+        }
+        tr {
+          border-bottom: 1px solid black;
+        }
+        .ft-bold{
+          font-weight: bold;
+        }
+        .thr {
+          max-width: 150px;
+        }
+        .thl {
+          text-align: center;
+        }
+        .btn-container {
+          text-align: center;
+          border-bottom: none;
+        }
+      }
+    }
+  }
+}

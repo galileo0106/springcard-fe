@@ -1,0 +1,264 @@
+.vertical-align-middle {
+  vertical-align: middle;
+}
+
+.padding-bottom-3 {
+  padding-bottom: 3px;
+}
+
+.with-top-space {
+  margin-top: 8px;
+}
+
+.accordion-header {
+  border-top-left-radius: 5px !important;
+  border-top-right-radius: 5px !important;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12) !important;
+}
+
+.full-width {
+  width: 50% !important;
+  display: block !important;
+}
+
+.inline_with_margin {
+  margin-right: 12px !important;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+  margin-left: 15px;
+}
+
+mat-toolbar {
+  margin-top: 20px !important;
+}
+
+.mat-checkboxes-group > mat-checkbox {
+  display: block !important;
+}
+
+blockquote {
+  background: rgba(0, 0, 0, 0.01);
+  border: 0.5px solid rgba(0, 0, 0, 0.03);
+  border-radius: 5px;
+  display: block;
+  margin: 16px auto;
+  padding: 20px;
+}
+
+blockquote.alert {
+  color: red;
+  font-style: italic;
+}
+
+val-errors {
+  color: #f44336 !important;
+}
+
+.with-padding-everywhere {
+  padding: 10px 10px 10px 10px !important;
+}
+
+.config-form {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 300px !important;
+  padding: 12px !important;
+}
+
+.mat-expanded {
+  margin-bottom: 16px;
+}
+
+mat-panel-title {
+  color: rgba(0, 0, 0, 0.87);
+}
+
+.bigger-select {
+  width: 50% !important;
+}
+
+.individual {
+  background-color: #f5f5f5;
+}
+
+.mine {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+}
+
+mat-hint {
+  font-weight: bolder;
+}
+
+.profile_button {
+  width: 100px;
+  height: 100px;
+  color: #2C4D60;
+  border: 2px solid #E6EFF4;
+  background-color: #F3F7FA;
+  border-radius: 0px !important;
+  white-space: normal;
+  padding: 5px 5px !important;
+}
+
+.profile_button:hover {
+  color: #2C4D60;
+  border-color: #2C4D60;
+  background-color: white;
+}
+
+.profile_button:focus {
+  color: black;
+  border-color: #D80A1D;
+  background-color: #F8FFFF;
+}
+
+.profile_text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-height: 100%;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-top: 25px;
+  margin-bottom: 0px;
+  /* text-overflow: ellipsis; */
+}
+
+.profile_icon {
+  width: 50px;
+  height: 50px;
+}
+
+.profile_title {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.register {
+  max-width: 900px;
+}
+
+.buttons-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.custom-button-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  width: 100%;
+  flex-direction: row;
+}
+
+:host ::ng-deep .custom-button-group .mat-radio-button {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+:host ::ng-deep .custom-button-group .mat-radio-label {
+  width: 100% !important;
+  height: 100% !important;
+  white-space: normal !important;
+}
+:host ::ng-deep .custom-button-group .mat-radio-container {
+  position: absolute;
+  width: 100px;
+  height: 100px; 
+}
+
+:host ::ng-deep .custom-button-group .mat-radio-outer-circle {
+  width: 100px;
+  height: 100px;
+  border: 2px solid #E6EFF4;
+  /* background-color: #F3F7FA; */
+  border-radius: 0px !important;
+  white-space: normal;
+  padding: 5px 5px !important;
+}
+:host ::ng-deep .custom-button-group .mat-radio-outer-circle:hover {
+  color: #2C4D60;
+  border-color: #2C4D60;
+}
+
+:host ::ng-deep .custom-button-group .mat-radio-inner-circle {
+  display: none;
+}
+:host ::ng-deep .custom-button-group .mat-radio-ripple {
+  display: none;
+}
+:host ::ng-deep .custom-button-group .mat-radio-persistent-ripple {
+  display: none;
+} 
+:host ::ng-deep .custom-button-group .mat-radio-label-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    box-sizing: border-box;
+    text-align: center;
+}
+:host ::ng-deep .custom-button-group .mat-radio-label-content p{
+  margin: 0;
+}
+
+:host ::ng-deep .custom-button-group .mat-radio-button.mat-accent.mat-radio-checked .mat-radio-outer-circle {
+  border-color: #D80A1D !important;
+}
+
+.check-button {
+  background-color: #F3F7FA;
+  color: #2C4D60;
+}
+
+.check-button:hover {
+  background-color: white;
+}
+
+.check-button.mat-radio-checked {
+  background-color: #F8FFFF;
+  color: black;
+}
+
+.mat-form-field-wrapper {
+  padding-top: 10px;
+}
+
+.invalid_form {
+  margin: 10px 0px;
+  padding: 10px;
+  border: 1px solid red;
+  color: red;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.error_icon {
+  vertical-align: middle;
+}
+
+.error_text {
+  width: fit-content;
+  margin: 0;
+}

@@ -1,0 +1,190 @@
+header {
+  position: fixed;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  height: 67px;
+  .top {
+    border-bottom: 1px solid #d9d9d9;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: 0 20px;
+    .item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+main {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: row;
+  width: 100%;
+  min-height: calc(100vh - 59px);
+  .side-pane {
+    margin-top: 67px;
+    min-height: calc(100vh - 126px);
+    max-height: calc(100vh - 126px);
+    overflow-y: auto;
+    min-width: 240px;
+    width: fit-content;
+    border-right: 1px solid #d9d9d9;
+    // @media (max-width: 990px) {
+    //   position: fixed;
+    //   z-index: 10;
+    // }
+    &::-webkit-scrollbar {
+      width: 3px;
+      background-color: transparent;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #d9d9d9;
+      border-radius: 3px;
+    }
+    .disabled {
+      color: #b3b3b3;
+      cursor: auto;
+    }
+    .mat-list-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    &::ng-deep .mat-list-item-content {
+      width: 100%;
+    }
+    .arrow {
+      position: absolute;
+      right: 10px;
+    }
+    .rotate {
+      transform: rotate(-180deg);
+    }
+    a {
+      span {
+        padding-left: 20px;
+      }
+    }
+  }
+  .main-content {
+    margin-top: 67px;
+    overflow-y: auto;
+    max-height: calc(100vh - 126px);
+    min-height: calc(100vh - 126px);
+    width: 100%;
+    display: block;
+    padding: 10px;
+    .container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
+      margin-top: 50px;
+      .loading-card {
+        position: relative;
+        width: 600px;
+        p {
+          width: 100%;
+        }
+        mat-progress-bar {
+          position: absolute;
+          top: 0;
+        }
+      }
+      .download-card {
+        display: flex;
+        width: 500px;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 5px;
+        padding: 50px 30px 20px;
+        h2 {
+          text-align: center;
+        }
+        .go-back {
+          color: #d80a1d;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+        .download_buttons {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          a {
+            padding: 5px;
+            display: flex;
+            &::ng-deep .mat-button-wrapper {
+              line-height: initial;
+              white-space: break-spaces;
+              width: 100%;
+              height: 100%;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
+          }
+        }
+      }
+      .mat-card {
+        display: flex;
+        width: 500px;
+        // align-items: flex-start;
+        align-items: center;
+        justify-content: flex-start;
+        flex-direction: column;
+        gap: 5px;
+        padding: 50px 30px 20px;
+        .update_btn {
+          width: 100%;
+        }
+        p {
+          width: 100%;
+        }
+        .service_buttons {
+          display: grid;
+          width: 100%;
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+          button {
+            white-space: normal;
+            line-height: 1.4em;
+            padding: 5px;
+          }
+        }
+        .additional_actions {
+          margin-top: 15px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+          width: 100%;
+        }
+        .sub_action {
+          display: flex;
+          align-content: center;
+          justify-content: center;
+          gap: 5px;
+          width: 100%;
+          p {
+            width: fit-content
+          }
+        }
+        .action_btn {
+          color: #d80a1d;
+          text-decoration: underline;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

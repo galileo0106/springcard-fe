@@ -1,0 +1,48 @@
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<mat-card *ngIf="!asyncOperation && !hideSubscribeForm">
+  <mat-card-header>
+    <div mat-card-avatar>
+      <mat-icon aria-hidden="false" aria-label="Plan" class="reverse_icon">euro_symbol</mat-icon>
+    </div>
+    <mat-card-title i18n>Subscribe to a plan</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="subscriptionForm" (ngSubmit)="subsribeToPlan()">
+      <mat-form-field class="full-width">
+        <mat-label i18n>Select your plan</mat-label>
+        <mat-select formControlName="plan" class="inline">
+          <mat-option *ngFor="let plan of plans" [value]="plan.key"
+            >{{ plan.label }} - {{ plan.pricePerYear }} &euro; <ng-container i18n>(price excluding tax)</ng-container>&nbsp;<ng-container
+              i18n
+              >/ year</ng-container
+            ></mat-option
+          >
+        </mat-select>
+      </mat-form-field>
+
+      <mat-radio-group class="example-radio-group" formControlName="paymentMethod">
+        <mat-radio-button class="example-radio-button" value="manual" i18n>By contacting our sales team</mat-radio-button>
+        <mat-radio-button class="example-radio-button" value="paypal" i18n>With Paypal</mat-radio-button>
+      </mat-radio-group>
+
+      <br />
+      <button mat-raised-button type="submit" [disabled]="subscriptionForm.invalid" i18n>Buy plan</button>
+    </form>
+  </mat-card-content>
+  <br />
+</mat-card>
+
+<div *ngIf="hideSubscribeForm">
+  <h2 class="mat-h2" i18n>Create customer account?</h2>
+  <p i18n>Our commercial team received your request and will contact you as soon as possible</p>
+  <p>
+    <a href="https://www.springcard.com/en/contact?request=account" target="_blank"
+      ><ng-container i18n>Please click on this link to create your customer account.</ng-container></a
+    >
+  </p>
+</div>

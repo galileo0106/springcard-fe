@@ -1,0 +1,80 @@
+.spaced {
+  margin-bottom: 20px;
+}
+
+.online {
+  display: inline;
+}
+
+.left-spaced {
+  margin-left: 20px;
+}
+
+.with-top-margin {
+  margin-top: 10px;
+}
+
+mat-card {
+  margin-bottom: 10px;
+  height: 86%;
+  min-height: 86%;
+}
+
+mat-card-header {
+  margin-bottom: 8px;
+  height: 3%;
+}
+
+mat-card-content {
+  display: block;
+  height: 97%;
+  min-height: 97%;
+  margin-top: 18px;
+}
+
+mat-card-title {
+  font-weight: bold;
+  display: inline;
+}
+
+.fullheight {
+  height: 90%;
+  min-height: 90%;
+}
+
+.fullwh {
+  height: 100%;
+  min-height: 100%;
+  width: 100%;
+  min-width: 100%;
+}
+
+div {
+  box-sizing: border-box;
+}
+
+.coloredContainerX {
+  height: 100%;
+  min-height: 100%;
+}
+
+div.coloredContainerX > div,
+div.colorNested > div > div {
+  padding: 8px;
+  opacity: 0.9;
+}
+
+div.colored > div {
+  padding: 8px;
+  opacity: 0.9;
+}
+
+.containerX {
+  box-sizing: content-box !important;
+  height: 100%;
+  min-height: 100%;
+}
+
+.hand {
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+<app-device-informations
+  [blockTitle]="headerTitle"
+  [icon]="headerIcon"
+  [deviceId]="deviceId"
+  [componentName]="componentName"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+></app-device-informations>
+
+<h2 class="mat-h2">
+  {{ pageTitle }} <ng-container *ngIf="readerName"><ng-container i18n>on</ng-container> {{ readerName }}</ng-container>
+</h2>
+
+<div *ngIf="isAnalysing">
+  <h2 class="mat-h2" i18n>Card is analysed, please wait</h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<div *ngIf="hasError">
+  <h2 class="mat-h2" i18n>There was an error during analyse</h2>
+  <p [innerHTML]="errorMessage"></p>
+</div>
+
+<div *ngIf="isSuccess">
+  <h2 class="mat-h2" i18n>Result of analysis</h2>
+  <p [innerHTML]="resultMessage"></p>
+</div>
+
+<button mat-raised-button type="button" *ngIf="!isAnalysing" (click)="cardAnalysis()" i18n>Launch analysis</button>

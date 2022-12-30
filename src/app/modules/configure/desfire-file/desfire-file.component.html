@@ -1,0 +1,148 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="71" i18n="_templates_">(Desfire File)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>Use the Desfire File Template to read data from a NXP Desfire PICC. The PICC could be either a Desfire EV0 or a Desfire EV1.
+The Reader may either</p>
+<ul>
+<li>Read arbitrary data; the data will be transmitted in hexadecimal format. To do so, select the RAW mode in TOF register.</li>
+<li>Read a number (decimal output). To do so, select the decimal mode in TOF register.</li>
+<li>Read a string (ASCII-encoded data). To do so, select either the Short String or the Long String mode in TOF register.
+The target data is pointed to by an Application Identifier (AID) and a File Identifier. An offset within the file could be specified. The AID and the File Identifier are specified in the LOC register.
+Access to the file could involve a Mutual Authentication with the card, and the data could be transmitted either in plain, MACed/CMACed or ciphered modes. The key number, key value and communication mode are specified in the AUT register.</li>
+</ul></ng-container>
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Location of Data</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Select the Desfire AID, the File ID, and the offset/length parameters to read the file</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Desfire Application ID (AID)</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl2gev7yd_reg0003_gucejpy"
+               >
+    </mat-form-field>
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl2gev7yd_reg0003_x6j525l"><ng-container i18n="_multiconf_">Read Command</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl2gev7yd_reg0003_x6j525l" class="mat-radio-group" formControlName="tpl2gev7yd_reg0003_x6j525l">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Read Data, BD (Standard Data File or Backup Data File, all card versions)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Read Data, AD (Standard Data File or Backup Data File, Desfire EV2 and EV3)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Read Record, BB (Linear Record File or Cyclic Record File, all card versions)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Read Record, AB (Linear Record File or Cyclic Record File, Desfire EV2 and EV3)</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="tpl2gev7yd_reg0003_xdeivrd" id="tpl2gev7yd_reg0003_xdeivrd"  formControlName="tpl2gev7yd_reg0003_xdeivrd" >
+            
+            <input type="hidden" name="tpl2gev7yd_reg0003_ds32kfn" id="tpl2gev7yd_reg0003_ds32kfn"  formControlName="tpl2gev7yd_reg0003_ds32kfn" >
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">File ID</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl2gev7yd_reg0003_bu44smy"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Read Offset or Record Number</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl2gev7yd_reg0003_bhudxsy"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Read Length or Record Size</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tpl2gev7yd_reg0003_jokxtwy"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bytes</ng-container></mat-label>        <input matInput type="number" formControlName="tpl2gev7yd_reg0003_fbuk34n"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bits</ng-container></mat-label>        <input matInput type="number" formControlName="tpl2gev7yd_reg0003_trcl26y"
+               >
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Authentication</ng-container></h1>
+
+                        
+                        
+                        
+                        
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl2gev7yd_reg0005_owh5twn"><ng-container i18n="_multiconf_">Authentication Method</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl2gev7yd_reg0005_owh5twn" class="mat-radio-group" formControlName="tpl2gev7yd_reg0005_owh5twn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">No authentication</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Desfire EV0 DES/3DES authentication (Authenticate command)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Desfire EV1 DES/3DES authentication (AuthenticateIso command)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Desfire EV1 AES authentication (AuthenticateAes command)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Desfire EV2 AES authentication (AuthenticateEV2 command)</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                        
+                        
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>This register defines the transport protocol and the behaviour of the Reader during the handshaking.
+It is also possible for the Reader to add a token to its output, to tell the receiver what kind of credential has been read.</p></ng-container>
+            <input type="hidden" name="tpl2gev7yd_reg0004_kxpbr2l" id="tpl2gev7yd_reg0004_kxpbr2l"  formControlName="tpl2gev7yd_reg0004_kxpbr2l" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl2gev7yd_reg0004_ax7h6sl"><ng-container i18n="_multiconf_">Iso 7816 Wrapping</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl2gev7yd_reg0004_ax7h6sl" class="mat-radio-group" formControlName="tpl2gev7yd_reg0004_ax7h6sl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Use native Desfire command format</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Use ISO 7816 Wrapping of Desfire commands</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tpl2gev7yd_reg0004_t6r55rl"><ng-container i18n="_multiconf_">Select Application</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl2gev7yd_reg0004_t6r55rl" class="mat-radio-group" formControlName="tpl2gev7yd_reg0004_t6r55rl">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Do not send ISO 7816 SelectApplication(Desfire)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Send ISO 7816 SelectApplication(Desfire) before processing</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                        
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_tpl2gev7yd_reg0004_khxezgy"><ng-container i18n="_multiconf_">Add a Card Type Token to the output stream?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tpl2gev7yd_reg0004_khxezgy" class="mat-radio-group" formControlName="tpl2gev7yd_reg0004_khxezgy">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">Do not add a Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">Add 71 hex value as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" *ngIf="advanced"><ng-container i18n="_multiconf_">Add D char as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" *ngIf="advanced"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Prefix</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>A Template-specific Prefix, that is added after the Reader's global Prefix.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Use <code>\\t</code> for a Tab, <code>\\n</code> for Enter, <code>\\b</code> for Back space, <code>\\v</code> for Vertical space.</p></ng-container>
+            <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Prefix</ng-container></mat-label>        <input matInput type="text" formControlName="tpl2gev7yd_reg0002"
+              maxlength="8" >
+            <mat-error>
+            <val-errors controlName="tpl2gev7yd_reg0002"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

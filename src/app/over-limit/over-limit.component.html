@@ -1,0 +1,17 @@
+<div class="overlimit ">
+  <h2 class="mat-h2"><ng-container i18n>You have reached out the limit of</ng-container> {{ limitLabel }}.</h2>
+  <h4 class="mat-h4"><ng-container i18n>Or may be you are late on your payments.</ng-container></h4>
+  <p>
+    <a class="withdecoration" (click)="redirectUserTo('pricing')">
+      <ng-container i18n>Please upgrade your plan to a</ng-container>&nbsp;<ng-container>{{
+        planService.getPayingPlansList()
+      }}</ng-container
+      >&nbsp;<ng-container i18n>plan.</ng-container>
+    </a>
+  </p>
+  <p>
+    <a class="withdecoration" (click)="redirectUserTo('account')">
+      <ng-container i18n>Verify your invoices.</ng-container>
+    </a>
+  </p>
+</div>

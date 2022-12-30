@@ -1,0 +1,34 @@
+<div class="footer">
+  <div class="right">
+    <img src="assets/svg/logo-icon.svg" alt="springcard companion" width="50px" />
+    <p class="copyright" href="https://www.springcard.com/en/copyright.html" title="SpringCard" target="_blank">
+      {{ copyright }}
+    </p>
+  </div>
+  <!-- <div>
+    <ng-container i18n>Server:</ng-container> {{ serverName }} - <ng-container i18n>Account:</ng-container> {{ accountName }} -
+    <ng-container i18n>version:</ng-container> <a class="copyright" href="" routerLink="/changelog">{{ appVersion }}</a> -
+    {{ compilationDate }} &copy;
+    <a class="copyright" href="https://www.springcard.com/en/copyright.html" title="SpringCard" target="_blank">{{ copyright }}</a>
+  </div> -->
+  <div class="footer-main">
+    <a i18n routerLink="/about">About</a>
+    <span class="line"></span>
+    <ng-container *ngIf="!isLoggedIn">
+      <a routerLink="/download" i18n>DownLoad</a>
+      <span class="line"></span>
+      <!-- <a routerLink="/pricing" i18n>Pricing</a>
+      <span class="line"></span> -->
+      <a routerLink="/welcome" i18n>Terms of use</a>
+      <span class="line"></span>
+    </ng-container>
+    <ng-container *ngIf="isLoggedIn">
+      <a routerLink="/changelog">
+        <span i18n>Service</span>&nbsp;
+        <span>{{ appVersion }}</span>
+      </a>
+      <span class="line"></span>
+    </ng-container>
+    <a i18n class="copyright" href="https://www.springcard.com/en/copyright.html" title="SpringCard" target="_blank">www.springcard.com</a>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+.item {
+  margin: 10px 0px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.item {
+  cursor: pointer;
+}
+
+.item:hover {
+  /* box-shadow: 1px 1px 2px #aaa !important; */
+  background-color: #eee !important;
+}
+
+.item_icon {
+  display: flex;
+  width: 60px;
+  justify-content: center;
+}
+
+fa-icon {
+  vertical-align: middle;
+}

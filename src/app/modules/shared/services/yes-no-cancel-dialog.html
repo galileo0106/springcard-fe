@@ -1,0 +1,22 @@
+<style>
+  .newLine {
+    white-space: pre-line;
+  }
+
+  .key {
+    vertical-align: top;
+  }
+  .mat-dialog-title {
+    display: flex !important;
+  }
+  .mat-dialog-title .mat-icon {
+    margin-right: 5px;
+  }
+</style>
+<h1 mat-dialog-title><mat-icon>question_answer</mat-icon> <ng-container>{{data.title}}</ng-container></h1>
+<mat-dialog-content class="newLine"> {{data.message}} </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] (click)='setDataButton("yes")' color="primary" cdkFocusInitial>{{data.yesButton}}</button>
+  <button mat-button [mat-dialog-close] (click)='setDataButton("no")'>{{data.noButton}}</button>
+  <button mat-button *ngIf="data.withCancel" [mat-dialog-close] (click)='setDataButton("cancel")' i18n>Cancel</button>
+</mat-dialog-actions>

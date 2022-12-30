@@ -1,0 +1,293 @@
+<div>
+  <header>
+    <div class="top">
+      <div class="item">
+        <img src="assets/svg/logo.svg" alt="springcard companion" width="190px" />
+      </div>
+      <a *ngIf="showChat" mat-button class="menu-item" [routerLink]="[{ outlets: { chat: ['helpdesk-chat'] } }]">
+        <mat-icon>help_outline</mat-icon>
+      </a>
+      <div class="item">
+        <app-header-actions></app-header-actions>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="side-pane" *ngIf="!loading.isLoading && showLeftMenu && !serviceIsDeprecated && serviceDetected && !showDownloadCard">
+      <mat-nav-list>
+        <ng-container *ngIf="isRunningWithoutService">
+          <mat-list-item>
+            <mat-icon matListIcon>devices_other</mat-icon>
+            <ng-container i18n="_UI_">More</ng-container>
+          </mat-list-item>
+
+          <a mat-list-item (click)="reuseService()">
+            <span i18n="_UI_">Reuse the service</span>
+          </a>
+
+          <mat-divider></mat-divider>
+        </ng-container>
+
+        <mat-list-item (click)="setOpenSideMenu('devices')">
+          <mat-icon matListIcon>devices</mat-icon>
+          <ng-container i18n="_UI_">Devices</ng-container>
+          <mat-icon matListIcon class="arrow" [ngClass]="openSideMenu.devices ? 'rotate' : ''">expand_more</mat-icon>
+        </mat-list-item>
+        <ng-container *ngIf="openSideMenu.devices">
+          <a mat-list-item routerLink="/detect/online" *ngIf="!isRunningWithoutService">
+            <span i18n="_UI_">Online</span>
+          </a>
+          <a mat-list-item routerLink="/detect/binding" *ngIf="!isRunningWithoutService">
+            <span i18n="_UI_">Bindings</span>
+          </a>
+          <a mat-list-item routerLink="/teamproducts" *ngIf="isMemberOfTeam">
+            <span i18n="_UI_">Team products</span>
+          </a>
+          <a mat-list-item routerLink="/flashhistory" *ngIf="isMemberOfTeam || isSingleAccount">
+            <span i18n>History</span>
+          </a>
+          <a mat-list-item class="disabled">
+            <span i18n="_UI_">Associated</span>
+          </a>
+        </ng-container>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item (click)="setOpenSideMenu('configurations')">
+          <mat-icon matListIcon>settings</mat-icon>
+          <ng-container i18n="_UI_">Configurations</ng-container>
+          <mat-icon matListIcon class="arrow" [ngClass]="openSideMenu.configurations ? 'rotate' : ''">expand_more</mat-icon>
+        </mat-list-item>
+        <ng-container *ngIf="openSideMenu.configurations">
+          <a mat-list-item routerLink="/newconfig">
+            <div class="create-new-btn"><span i18n="_UI_">New configuration</span></div>
+          </a>
+          <a mat-list-item routerLink="/configure">
+            <span i18n="_UI_">Manage</span>
+          </a>
+
+          <a mat-list-item routerLink="/teamconfigurations" *ngIf="isMemberOfTeam">
+            <span i18n="_UI_">Team configurations</span>
+          </a>
+
+          <a mat-list-item class="disabled">
+            <span i18n="_UI_">Import</span>
+          </a>
+        </ng-container>
+
+        <mat-divider></mat-divider>
+
+        <mat-list-item (click)="setOpenSideMenu('exploreAndLean')">
+          <mat-icon matListIcon>travel_explore</mat-icon>
+          <ng-container i18n="_UI_">Explore & Learn</ng-container>
+          <mat-icon matListIcon class="arrow" [ngClass]="openSideMenu.exploreAndLean ? 'rotate' : ''">expand_more</mat-icon>
+        </mat-list-item>
+        <ng-container *ngIf="openSideMenu.exploreAndLean">
+          <a mat-list-item class="disabled">
+            <span i18n="_UI_">Recognize card</span>
+          </a>
+          <a mat-list-item class="disabled">
+            <span i18n="_UI_">APDU scripting</span>
+          </a>
+        </ng-container>
+        <mat-divider></mat-divider>
+
+        <a mat-list-item routerLink="/allwsevents">
+          <mat-icon matListIcon>rtt</mat-icon>
+          <ng-container i18n="_UI_">Realtime Events</ng-container>
+        </a>
+        <mat-divider></mat-divider>
+
+        <mat-list-item *ngIf="!isRunningWithoutService" (click)="setOpenSideMenu('supportCenter')">
+          <mat-icon matListIcon>contact_support</mat-icon>
+          <ng-container i18n="_UI_">Support Center</ng-container>
+          <mat-icon matListIcon class="arrow" [ngClass]="openSideMenu.supportCenter ? 'rotate' : ''">expand_more</mat-icon>
+        </mat-list-item>
+        <ng-container *ngIf="openSideMenu.supportCenter">
+          <a mat-list-item routerLink="/support">
+            <span i18n="_UI_">Technical support</span>
+          </a>
+          <a mat-list-item routerLink="/servicedata" *ngIf="!isRunningWithoutService">
+            <span i18n="_UI_">Service Data</span>
+          </a>
+          <a mat-list-item routerLink="/about" *ngIf="!isRunningWithoutService">
+            <span i18n="_UI_">About</span>
+          </a>
+        </ng-container>
+        <mat-divider></mat-divider>
+
+        <mat-list-item (click)="setOpenSideMenu('springcard')">
+          <mat-icon matListIcon>web</mat-icon>
+          Springcard.com
+          <mat-icon matListIcon class="arrow" [ngClass]="openSideMenu.springcard ? 'rotate' : ''">expand_more</mat-icon>
+        </mat-list-item>
+        <ng-container *ngIf="openSideMenu.springcard">
+          <a mat-list-item href="https://www.springcard.com/" target="_blank">
+            <span i18n="_UI_">Go on the site</span>
+          </a>
+
+          <a mat-list-item href="https://www.springcard.com/en/privacy" target="_blank">
+            <span i18n="_UI_">Privacy policy</span>
+          </a>
+
+          <a mat-list-item routerLink="/welcome">
+            <span i18n="_UI_">Terms of Service</span>
+          </a>
+        </ng-container>
+        <mat-divider></mat-divider>
+      </mat-nav-list>
+    </div>
+    <div class="main-content">
+      <div class="container" *ngIf="loading.isLoading">
+        <mat-card class="loading-card">
+          <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+          <h2>{{ loading.header }}</h2>
+          <p>
+            {{ loading.description }}
+          </p>
+        </mat-card>
+      </div>
+      <ng-container *ngIf="!loading.isLoading">
+        <div class="container" *ngIf="serviceIsDeprecated && !isRunningWithoutService && !showDownloadCard">
+          <mat-card>
+            <h2 i18n>There is a new version of the Service</h2>
+            <p i18n>SpringCard Companion Service version <strong>{{ runningVersion }}</strong> has been detected.<br /> Please update the Service to <strong>{{ currentVersion }}</strong> before proceeding.</p>
+            <button
+              mat-flat-button
+              class="update_btn"
+              color="primary"
+              (click)="updateService()"
+              onclick="document.location = 'com.springcard.companion://update'"
+            >
+              <ng-container i18n>Update service</ng-container>
+            </button>
+
+            <div class="additional_actions">
+              <div class="sub_action">
+                <a i18n class="action_btn" (click)="skipServiceVersion()">Continue with old version</a>
+                <p i18n>(not recommended)</p>
+              </div>
+            </div>
+          </mat-card>
+        </div>
+        <div class="container" *ngIf="!serviceDetected && !isRunningWithoutService && !showDownloadCard">
+          <mat-card>
+            <h2 i18n>Service is not running</h2>
+            <p i18n>Companion Service is not running on your computer. If it is already installed, please start the service manually or click
+              <a class="action_btn" onclick="document.location='com.springcard.companion://open'" (click)="startService()">Start Service</a>. If this is not
+              the case,
+              <a (click)="this.showDownloadCard = true" class="action_btn">Download installer</a>
+              and run the installation procedure.</p>
+            <div class="service_buttons">
+              <button
+                onclick="document.location='com.springcard.companion://open'"
+                mat-flat-button
+                class="request_btn"
+                color="primary"
+                (click)="startService()"
+              >
+                <ng-container i18n>Start Service</ng-container>
+              </button>
+              <button mat-stroked-button (click)="this.showDownloadCard = true" class="request_btn" color="primary">
+                <ng-container i18n>Download Service Installer</ng-container>
+              </button>
+            </div>
+          </mat-card>
+        </div>
+        <div class="container" *ngIf="showDownloadCard && !isRunningWithoutService">
+          <mat-card class="download-card">
+            <h2 i18n>SpringCard Companion Download Page</h2>
+            <p i18n>SpringCard Companion Service is a lightweight Windows software that acts as the gateway between the SpringCard devices, connected your computer, and the SpringCard Companion application in the cloud.</p>
+            <p i18n>Currently, SpringCard Companion Service is available only for computers running Microsoft Windows 10 or 11.</p>
+            <p (click)="this.showDownloadCard = false" i18n class="go-back">Click here to go back</p>
+            <div class="download_buttons">
+              <a
+                href="https://www.springcard.com/en/download/find/file/sn20030"
+                target="_blank"
+                i18n-title
+                mat-flat-button
+                color="primary"
+                title="Download SpringCard Companion"
+                ><ng-container i18n>Companion Service for Windows</ng-container></a
+              >
+
+              <a
+                disabled
+                href="https://www.springcard.com/en/download/find/file/sn20030"
+                target="_blank"
+                i18n-title
+                mat-flat-button
+                color="warn"
+                title="Download SpringCard Companion"
+                ><ng-container i18n>Companion Service for MacOS</ng-container></a
+              >
+            </div>
+          </mat-card>
+        </div>
+
+        <ng-container *ngIf="!serviceIsDeprecated && serviceDetected">
+          <router-outlet></router-outlet>
+          <router-outlet name="chat"></router-outlet>
+        </ng-container>
+      </ng-container>
+    </div>
+  </main>
+
+  <footer>
+    <app-main-footer></app-main-footer>
+  </footer>
+
+  <val-default-errors>
+    <ng-template valError="required" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.required-with-label">{{ label }} is required</ng-container>
+      <ng-container *ngIf="!label" i18n="@@validation.message.required">This field is required</ng-container>
+    </ng-template>
+
+    <ng-template valError="email" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.email-with-label">{{ label }} must be a valid email address</ng-container>
+      <ng-container *ngIf="!label" i18n="@@validation.message.email">This field must be a valid email address</ng-container>
+    </ng-template>
+
+    <ng-template valError="max" let-error="error" let-label>
+      <ng-container i18n="@@validation.message.max">The field's value is over the maximum</ng-container>
+    </ng-template>
+
+    <ng-template valError="hexadecimalValue" let-error="error" let-label>
+      <ng-container i18n="@@validation.message.hexadecimalValue">Your hexadecimal value is invalid</ng-container>
+    </ng-template>
+
+    <ng-template valError="ipValue" let-error="error" let-label>
+      <ng-container i18n="@@validation.message.ipValue">Your IPv4 address is invalid</ng-container>
+    </ng-template>
+
+    <ng-template valError="pattern" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.pattern-with-label">{{ label }} does not match the pattern</ng-container>
+      <ng-container *ngIf="!label" i18n="@@validation.message.pattern">This field does not match the pattern</ng-container>
+    </ng-template>
+
+    <ng-template valError="min" let-error="error" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.min-with-label"
+        >{{ label }} must be at least {{ error.min | number }}</ng-container
+      >
+      <ng-container *ngIf="!label" i18n="@@validation.message.min">This field must be at least {{ error.min | number }}</ng-container>
+    </ng-template>
+
+    <ng-template valError="minlength" let-error="error" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.minlength-with-label"
+        >{{ label }} must be at least {{ error.requiredLength | number }} characters</ng-container
+      >
+      <ng-container *ngIf="!label" i18n="@@validation.message.minlength"
+        >This field must be at least {{ error.requiredLength | number }} characters</ng-container
+      >
+    </ng-template>
+
+    <ng-template valError="maxlength" let-error="error" let-label>
+      <ng-container *ngIf="label" i18n="@@validation.message.maxlength-with-label"
+        >{{ label }} must be under {{ error.requiredLength | number }} characters</ng-container
+      >
+      <ng-container *ngIf="!label" i18n="@@validation.message.maxlength"
+        >This field must be under {{ error.requiredLength | number }} characters</ng-container
+      >
+    </ng-template>
+  </val-default-errors>
+</div>

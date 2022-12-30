@@ -1,0 +1,203 @@
+
+<mat-accordion >
+      <form [formGroup]="configurationForm">
+            <blockquote>
+	<h4 i18n>List of protocols (or family of cards) to poll *</h4>
+	<mat-form-field class="full-width">
+		<mat-label i18n>Select one</mat-label>
+		<mat-select formControlName="lookups">
+					<mat-option value="63" i18n="_templates_">(Mifare Plus SL3)</mat-option>
+				</mat-select>
+	</mat-form-field>
+</blockquote>
+            <ng-container i18n="_multiconf_"><p>Use the Mifare Plus SL3 Template to read data from a NXP Mifare Plus PICC (Mifare Plus 2K, Mifare Plus 4K) running in Security Level 3.
+The reader may either</p>
+<ul>
+<li>Read arbitrary data; the data will be transmitted in hexadecimal format. To do so, select the RAW mode in TOF register.</li>
+<li>Read a number (decimal output). To do so, select the decimal mode in TOF register.</li>
+<li>Read a string (ASCII-encoded data). To do so, select either the Short String or the Long String mode in TOF register.
+The target data is pointed to by either:</li>
+<li>A sector AID in the MAD (Mifare Access Directory) of the card,</li>
+<li>An absolute block address.
+The AID or the block address is specified in the LOC register.</li>
+</ul></ng-container>
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Location of Data</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>Reading can cross sector boundaries, but sector trailers are always discarded.</p></ng-container>
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">AID</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tplvsbmlpn_reg0003_rk4phyn"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Address</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tplvsbmlpn_reg0003_2bahmzn"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bytes</ng-container></mat-label>        <input matInput type="number" formControlName="tplvsbmlpn_reg0003_3ovnoey"
+               >
+    </mat-form-field>
+            
+                <mat-form-field class="full-width" *ngIf="advanced">        <mat-label><ng-container i18n="_multiconf_">Shift Bits</ng-container></mat-label>        <input matInput type="number" formControlName="tplvsbmlpn_reg0003_ahd4scn"
+               >
+    </mat-form-field>
+            
+<ng-container i18n="_multiconf_"><p>The number of blocks to be read is deduced from the expected length, as set in the TOF register.</p></ng-container>
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Authentication</ng-container></h1>
+
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0005_fgspoil"><ng-container i18n="_multiconf_">Type of Key</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0005_fgspoil" class="mat-radio-group" formControlName="tplvsbmlpn_reg0005_fgspoil">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Key A</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Key B</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="tplvsbmlpn_reg0005_qqotlql" id="tplvsbmlpn_reg0005_qqotlql"  formControlName="tplvsbmlpn_reg0005_qqotlql" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0005_zawhwsy"><ng-container i18n="_multiconf_">Location of Secret Key</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0005_zawhwsy" class="mat-radio-group" formControlName="tplvsbmlpn_reg0005_zawhwsy">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Key is specified in the Template</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">SAM AV</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <input type="hidden" name="tplvsbmlpn_reg0005_mbubfud" id="tplvsbmlpn_reg0005_mbubfud"  formControlName="tplvsbmlpn_reg0005_mbubfud" >
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0005_ax6yead"><ng-container i18n="_multiconf_">Read mode</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0005_ax6yead" class="mat-radio-group" formControlName="tplvsbmlpn_reg0005_ax6yead">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Read encrypted, MAC on command, no MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Read encrypted, MAC on command, MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Read in plain, MAC on command, no MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Read in plain, MAC on command, MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Read encrypted, no MAC on command, no MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="5" ><ng-container i18n="_multiconf_">Read encrypted, no MAC on command, MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="6" ><ng-container i18n="_multiconf_">Read in plain, no MAC on command, no MAC on response</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Read in plain, no MAC on command, MAC on response</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                        
+                <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Value of the AES Secret Key</ng-container></mat-label><mat-hint align="end"><ng-container i18n="_multiconf_">Use hexadecimal notation (i.e FA04D3)</ng-container></mat-hint>        <input matInput type="text" formControlName="tplvsbmlpn_reg0005_mywaqkd_vjputzd"
+               >
+    </mat-form-field>
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Output Size and Format</ng-container></h1>
+
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0001_ut4pn2n_2kglign"><ng-container i18n="_multiconf_">Invert Data?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0001_ut4pn2n_2kglign" class="mat-radio-group" formControlName="tplvsbmlpn_reg0001_ut4pn2n_2kglign">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Transmit the sequence of bytes as is</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Transmit the sequence of bytes in reverse order</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0001_ut4pn2n_7wdxe6d"><ng-container i18n="_multiconf_">Mode</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0001_ut4pn2n_7wdxe6d" class="mat-radio-group" formControlName="tplvsbmlpn_reg0001_ut4pn2n_7wdxe6d">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">RAW Mode (Data is a numerical value)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">String Mode (Data is an ASCII string)</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0001_ut4pn2n_rsfphul"><ng-container i18n="_multiconf_">Padding if Data is shorted than specified length</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0001_ut4pn2n_rsfphul" class="mat-radio-group" formControlName="tplvsbmlpn_reg0001_ut4pn2n_rsfphul">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Padd with 0 on the left</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Padd with F on the right</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0001_ut4pn2n_4hgd4jd"><ng-container i18n="_multiconf_">Remove leading zeroes?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0001_ut4pn2n_4hgd4jd" class="mat-radio-group" formControlName="tplvsbmlpn_reg0001_ut4pn2n_4hgd4jd">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Keep all digits</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Suppress 0 digits on the left of the Data</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+            <div class="mat-form-field-wrapper" >
+			<mat-label id="lbl_tplvsbmlpn_reg0001_ut4pn2n_ytndzhn"><ng-container i18n="_multiconf_">Length and Format</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0001_ut4pn2n_ytndzhn" class="mat-radio-group" formControlName="tplvsbmlpn_reg0001_ut4pn2n_ytndzhn">
+													<mat-radio-button class="mat-radio-button" value="0" ><ng-container i18n="_multiconf_">Decimal, 10 digits (truncation on 4-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" ><ng-container i18n="_multiconf_">Raw (hex), 4 bytes (32 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" ><ng-container i18n="_multiconf_">Raw (hex), 8 bytes (64 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" ><ng-container i18n="_multiconf_">Raw (hex), 5 bytes (40 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="4" ><ng-container i18n="_multiconf_">Raw (hex), 10 bytes (80 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="5" ><ng-container i18n="_multiconf_">Raw (hex), 7 bytes (56 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="6" ><ng-container i18n="_multiconf_">Raw (hex), 11 bytes (88 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="7" ><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="8" ><ng-container i18n="_multiconf_">Raw (hex), 16 bytes (128 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="9" ><ng-container i18n="_multiconf_">Raw (hex), 20 bytes (160 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="16" ><ng-container i18n="_multiconf_">Raw (hex), 24 bytes (196 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="17" ><ng-container i18n="_multiconf_">Raw (hex), 32 bytes (256 bits)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="18" ><ng-container i18n="_multiconf_">Decimal, 12 digits (truncation on 5-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="19" ><ng-container i18n="_multiconf_">Decimal, 13 digits (truncation on 5-B)</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="20" ><ng-container i18n="_multiconf_">Decimal, variable length</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="21" ><ng-container i18n="_multiconf_">Raw (hex), variable length</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+                        
+                        
+                        
+                        
+                        
+                        
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Options</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>If this register is set, the Reader adds a token to its output to tell the receiver what kind of credential has been read.</p></ng-container>
+            <input type="hidden" name="tplvsbmlpn_reg0004_g65secl" id="tplvsbmlpn_reg0004_g65secl"  formControlName="tplvsbmlpn_reg0004_g65secl" >
+            
+                        
+            <div class="mat-form-field-wrapper" *ngIf="advanced">
+			<mat-label id="lbl_tplvsbmlpn_reg0004_khxezgy"><ng-container i18n="_multiconf_">Add a Card Type Token to the output stream?</ng-container></mat-label>
+		<mat-radio-group  aria-labelledby="lbl_tplvsbmlpn_reg0004_khxezgy" class="mat-radio-group" formControlName="tplvsbmlpn_reg0004_khxezgy">
+													<mat-radio-button class="mat-radio-button" value="0" *ngIf="advanced"><ng-container i18n="_multiconf_">Do not add a Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="1" *ngIf="advanced"><ng-container i18n="_multiconf_">Add 63 hex value as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="2" *ngIf="advanced"><ng-container i18n="_multiconf_">Add M char as Card Type Token</ng-container></mat-radio-button>
+												<mat-radio-button class="mat-radio-button" value="3" *ngIf="advanced"><ng-container i18n="_multiconf_">Reserved for futur use</ng-container></mat-radio-button>
+						</mat-radio-group>
+	</div>
+
+            
+</div>
+
+            <div  class="register">
+<h1><ng-container i18n="_multiconf_">Prefix</ng-container></h1>
+
+<ng-container i18n="_multiconf_"><p>A Template-specific Prefix, that is added after the Reader's global Prefix.</p></ng-container>
+<ng-container i18n="_multiconf_"><p>Use <code>\\t</code> for a Tab, <code>\\n</code> for Enter, <code>\\b</code> for Back space, <code>\\v</code> for Vertical space.</p></ng-container>
+            <mat-form-field class="full-width" >        <mat-label><ng-container i18n="_multiconf_">Prefix</ng-container></mat-label>        <input matInput type="text" formControlName="tplvsbmlpn_reg0002"
+              maxlength="8" >
+            <mat-error>
+            <val-errors controlName="tplvsbmlpn_reg0002"></val-errors>
+        </mat-error>
+    </mat-form-field>
+            
+</div>
+
+          </form>
+    <div class="invalid_form" *ngIf="configurationForm.invalid">
+      <mat-icon class="error_icon">error</mat-icon><ng-container i18n><p class="error_text">The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</p></ng-container>
+    </div>
+</mat-accordion>
+<br /><br />

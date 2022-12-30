@@ -1,0 +1,20 @@
+<style>
+  .newLine {
+    white-space: pre-line;
+  }
+
+  .key {
+    vertical-align: top;
+  }
+  .mat-dialog-title {
+    display: flex !important;
+  }
+  .mat-dialog-title .mat-icon {
+    margin-right: 5px;
+  }
+</style>
+<h1 mat-dialog-title><mat-icon>error</mat-icon> <ng-container>{{data.title}}</ng-container></h1>
+<mat-dialog-content class="newLine"> {{data.message}} </mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] (click)="ok()" color="primary" cdkFocusInitial i18n>Ok</button>
+</mat-dialog-actions>

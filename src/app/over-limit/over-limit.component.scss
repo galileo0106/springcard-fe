@@ -1,0 +1,12 @@
+div.overlimit {
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
+  padding: 12px;
+  border: solid 1px #c0c0c0;
+}
+
+a.withdecoration {
+  text-decoration: underline;
+  cursor: pointer;
+}

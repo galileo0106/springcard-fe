@@ -1,0 +1,119 @@
+<app-device-informations
+  [deviceId]="deviceId"
+  [componentName]="componentName"
+  [buttonsList]="topButtons"
+  [configurationName]="configurationName"
+  [configurationIsInReadOnlyMode]="isInReadOnlyMode"
+>
+</app-device-informations>
+
+<div *ngIf="asyncOperation">
+  <h2 class="mat-h2" i18n>Saving your configuration, please wait</h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<mat-card *ngIf="!asyncOperation">
+  <mat-card-header>
+    <mat-card-title i18n>Card Processing Templates</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-tab-group (selectedTabChange)="tabChanged($event)">
+      <mat-tab
+        *ngFor="let template of templatesTypes; let index = index"
+        label="{{ template.type | uppercase }} Template #{{ template.slot + 1 }}"
+      >
+        <div class="tabcontent">
+          <h2 class="mat-h2" *ngIf="hasTemplateOfTypeInSlot(template.type, template.slot)">{{ currentSelectedTemplateTitle }}</h2>
+          <button
+            mat-raised-button
+            *ngIf="hasTemplateOfTypeInSlot(template.type, template.slot) && !isInReadOnlyMode"
+            (click)="removeTemplateTypeInSlot(template.type, template.slot)"
+            i18n
+          >Remove template</button>
+          <button
+            mat-raised-button
+            (click)="addTemplateType(template.slot, template.type)"
+            *ngIf="!hasTemplateOfTypeInSlot(template.type, template.slot) && !isInReadOnlyMode"
+            i18n
+          >Add a new template</button>
+
+          <!-- Le formulaire permettant d'ajouter un template au slot courant -->
+          <div *ngIf="selectedTemplateSlot === template.slot && templateType === template.type">
+            <form [formGroup]="templateForm" class="with_vertical_space" (ngSubmit)="useTemplate()">
+              <mat-form-field class="full-width">
+                <mat-label i18n>Please select a template to use</mat-label>
+                <mat-select formControlName="template" required (ngModelChange)="modelChanged()">
+                  <mat-option *ngFor="let template of selectedTemplateList" [value]="template.id">{{ template.title }}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p [innerHTML]="templateDescription"></p>
+              <div>
+                <button mat-raised-button type="button" (click)="cancelAddTemplate()" i18n>Cancel</button>
+                <button mat-raised-button type="submit" class="with_horizontal_space" i18n>Add it</button>
+              </div>
+            </form>
+          </div>
+          <!-- La partie qui affiche un template -->
+          <div class="margined" *ngIf="currentTab === index">
+            <!-- Attention à ne pas ajouter de code après le commentaire ci-dessous, le contenu est généré (écrasé) automatiquement -->
+            <!-- Il ne faut pas non plus supprimer le commentaire ci-dessous ... -->
+            <!-- formgenerator start -->
+
+  <div *ngIf="selectedTemplateId === 'id_only' && currentTab === index">
+    <app-id-only [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-id-only>
+  </div>
+  <div *ngIf="selectedTemplateId === 'a_7816_4' && currentTab === index">
+    <app-a-7816-4 [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-a-7816-4>
+  </div>
+  <div *ngIf="selectedTemplateId === 'ndef_data' && currentTab === index">
+    <app-ndef-data [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-ndef-data>
+  </div>
+  <div *ngIf="selectedTemplateId === 'desfire_id' && currentTab === index">
+    <app-desfire-id [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-desfire-id>
+  </div>
+  <div *ngIf="selectedTemplateId === 'desfire_file' && currentTab === index">
+    <app-desfire-file [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-desfire-file>
+  </div>
+  <div *ngIf="selectedTemplateId === 'mifare_ultralight' && currentTab === index">
+    <app-mifare-ultralight [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-mifare-ultralight>
+  </div>
+  <div *ngIf="selectedTemplateId === 'mifare_classic' && currentTab === index">
+    <app-mifare-classic [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-mifare-classic>
+  </div>
+  <div *ngIf="selectedTemplateId === 'mifare_plus_sl3' && currentTab === index">
+    <app-mifare-plus-sl3 [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-mifare-plus-sl3>
+  </div>
+  <div *ngIf="selectedTemplateId === 'iso_15693_memory' && currentTab === index">
+    <app-iso-15693-memory [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-iso-15693-memory>
+  </div>
+  <div *ngIf="selectedTemplateId === 'em4134_memory' && currentTab === index">
+    <app-em4134-memory [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-em4134-memory>
+  </div>
+  <div *ngIf="selectedTemplateId === 'springblue' && currentTab === index">
+    <app-springblue [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-springblue>
+  </div>
+  <div *ngIf="selectedTemplateId === 'orange_nfc_retail' && currentTab === index">
+    <app-orange-nfc-retail [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-orange-nfc-retail>
+  </div>
+  <div *ngIf="selectedTemplateId === 'orange_nfc_office' && currentTab === index">
+    <app-orange-nfc-office [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-orange-nfc-office>
+  </div>
+  <div *ngIf="selectedTemplateId === 'apple_vas' && currentTab === index">
+    <app-apple-vas [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-apple-vas>
+  </div>
+  <div *ngIf="selectedTemplateId === 'google_smarttap' && currentTab === index">
+    <app-google-smarttap [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-google-smarttap>
+  </div>
+  <div *ngIf="selectedTemplateId === 'pan' && currentTab === index">
+    <app-pan [configurationIsInReadOnlyMode]="isInReadOnlyMode" [configId]="configId" [deviceId]="deviceId" [UUID]="uuid" [componentName]="componentName" [deviceList]="deviceDefinition" [slot]="templateSlot"></app-pan>
+  </div>
+
+  <!-- formgenerator end -->
+          </div>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card-content>
+</mat-card>

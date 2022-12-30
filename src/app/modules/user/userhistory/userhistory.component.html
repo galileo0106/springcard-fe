@@ -1,0 +1,78 @@
+<div *ngIf="asyncOperation">
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-bar color="primary" mode="indeterminate"></mat-progress-bar>
+  </div>
+</div>
+
+<mat-card *ngIf="!asyncOperation">
+  <mat-card-header>
+    <div mat-card-avatar class="item_icon">
+        <fa-icon class="fa-2x" [icon]="faFileLinesIcon"></fa-icon>
+    </div>
+    <mat-card-title i18n>History</mat-card-title>
+    <mat-card-subtitle i18n>Retrieve the history of your connections and the operations you have done with SpringCard Companion.</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <div class="control_content">
+      <div>
+        <button mat-flat-button color="primary" (click)="exportHistory()"><mat-icon i18n>print</mat-icon><ng-container i18n>&nbsp;&nbsp;Export to CSV</ng-container></button>
+      </div>
+    </div>
+    <div class="member_table">
+    <table mat-table #table [dataSource]="historyListTableSource">
+      <ng-container matColumnDef="created">
+        <th mat-header-cell *matHeaderCellDef><ng-container i18n>Date / Time</ng-container></th>
+        <td mat-cell *matCellDef="let element">{{ element.created | iso8601toJsDate}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef><ng-container i18n>Name</ng-container></th>
+        <td mat-cell *matCellDef="let element">{{ element.user_name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="device">
+        <th mat-header-cell *matHeaderCellDef><ng-container i18n>Device</ng-container></th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.device_name }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="serialnumber">
+        <th mat-header-cell *matHeaderCellDef><ng-container i18n>Serial Number</ng-container></th>
+        <td mat-cell *matCellDef="let element">{{ element.serial_number }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>
+          <ng-container i18n>Action</ng-container>
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.action }}</td>
+      </ng-container>
+
+      <!-- <ng-container matColumnDef="actions" stickyEnd>
+        <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu icon-button with a menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="actionOnProfile(element, 'invite')">
+              <mat-icon>person_add</mat-icon><span i18n>Invite again</span>
+            </button>
+            <button mat-menu-item (click)="actionOnProfile(element, 'admin')">
+              <mat-icon>supervisor_account</mat-icon><span i18n *ngIf="element.is_admin_of_team">Remove as admin</span
+                ><span i18n *ngIf="!element.is_admin_of_team">Set as admin</span>
+            </button>
+            <button mat-menu-item (click)="actionOnProfile(element, 'delete')">
+              <mat-icon>delete</mat-icon><span i18n>Remove</span>
+            </button>
+          </mat-menu>
+          </td>
+        </ng-container> -->
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+      </table>
+    </div>
+  </mat-card-content>
+</mat-card>

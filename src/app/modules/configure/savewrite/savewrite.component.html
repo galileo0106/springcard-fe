@@ -1,0 +1,108 @@
+<app-device-informations
+  [deviceId]="deviceId"
+  [componentName]="componentName"
+  [buttonsList]="topButtons"
+  [configurationIsInReadOnlyMode]="isInReadOnlyMode"
+  (deviceLoaded)="getDeviceFromComponent($event)"
+  (loadingDeviceFailed)="deviceLoadFailed()"
+></app-device-informations>
+
+<div *ngIf="downloadingDevicesList">
+  <h2 class="mat-h2" i18n>Searching for devices list</h2>
+  <div fxLayout fxLayoutAlign="center center">
+    <mat-progress-spinner color="warn" mode="indeterminate"></mat-progress-spinner>
+  </div>
+</div>
+
+<div *ngIf="errorWhileDetecting">
+  <h2 i18n>There was an error while detecting your devices</h2>
+  <p>{{ errorMessage }}</p>
+</div>
+
+<app-over-limit [limitLabel]="limitLabel" *ngIf="overLimit"></app-over-limit>
+
+<mat-card *ngIf="isRunningWithoutService">
+  <mat-card-header>
+    <mat-card-title i18n>Save configuration to a file</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="configurationDetailsForm">
+      <mat-form-field class="full-width">
+        <mat-label i18n>Configuration title</mat-label>
+        <input matInput type="text" formControlName="title" readonly />
+        <mat-error>
+          <val-errors controlName="title"></val-errors>
+        </mat-error>
+      </mat-form-field>
+    </form>
+    <button mat-raised-button color="warn" (click)="downloadAsJson()" i18n>Download the configuration in JSON format</button>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="!downloadingDevicesList && !overLimit && !isRunningWithoutService">
+  <h2 class="mat-h2" i18n>Apply configuration to device</h2>
+  <p i18n>You are ready to load the following configuration into your device:</p>
+  <mat-card-content>
+    <mat-expansion-panel [expanded]="true" id="panel_configuration_settings">
+      <mat-expansion-panel-header>
+        <mat-panel-title><strong i18n>Configuration settings</strong></mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <form [formGroup]="configurationDetailsForm">
+        <mat-form-field class="full-width">
+          <mat-label i18n>Configuration title</mat-label>
+          <input matInput type="text" formControlName="title" required />
+          <mat-error>
+            <val-errors controlName="title"></val-errors>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+          <mat-label i18n>Configuration description</mat-label>
+          <textarea matInput placeholder="" formControlName="description"></textarea>
+        </mat-form-field>
+
+        <mat-form-field class="bigger-select">
+          <mat-label i18n>Select the target device:</mat-label>
+          <mat-select formControlName="devices">
+            <mat-option *ngFor="let device of devices" [value]="device.DeviceId">
+              <span *ngIf="device.FriendlyName">{{ device.FriendlyName }}</span>
+              <span *ngIf="!device.FriendlyName">{{ device.Name }}</span>
+              <span *ngIf="device.SerialNumber"> - Serial number: {{ device.SerialNumber }}</span>
+              <span *ngIf="device.Firmware"> - Firmware version {{ device.Firmware }}</span>
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <button mat-raised-button style="margin-left: 12px" (click)="getDevicesList()" type="button" i18n>Refresh List</button>
+
+        <!--<div class="mat-form-field-wrapper">
+          <mat-checkbox formControlName="favorites" i18n>Favorite this configuration</mat-checkbox>
+        </div>-->
+
+        <div class="mat-form-field-wrapper">
+          <mat-label id="lbl_writingMethod" i18n>Method to save configuration</mat-label>
+          <mat-radio-group aria-labelledby="lbl_writingMethod" class="mat-radio-group" formControlName="method">
+            <mat-radio-button class="mat-radio-button" value="ERASE_ALL" i18n>Overwrite all configuration</mat-radio-button>
+            <mat-radio-button class="mat-radio-button" value="ERASE_ALL_KEEP_INDIVIDUAL" i18n
+              >Overwrite configuration but keep individual registers</mat-radio-button
+            >
+          </mat-radio-group>
+        </div>
+      </form>
+
+      <div *ngIf="asyncOperation">
+        <h2 class="mat-h2">{{ asyncOperationTitle }}</h2>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+      </div>
+    </mat-expansion-panel>
+  </mat-card-content>
+  <mat-card-actions>
+    <!-- prettier-ignore -->
+    <button mat-raised-button (click)="exportAsJson()" i18n>Download the configuration in JSON format</button>
+    <!-- prettier-ignore -->
+    <button mat-raised-button *ngIf="isDeviceSelected()" [disabled]="configurationDetailsForm.invalid || asyncOperation" (click)="writeToReader()" i18n>Apply</button>
+    <!-- prettier-ignore -->
+    <mat-error class="bottom" *ngIf="configurationDetailsForm.invalid" i18n>The content of the configuration is invalid or some parts are missing and so can't be saved, please correct the problem(s).</mat-error>
+  </mat-card-actions>
+</mat-card>
+<br /><br />

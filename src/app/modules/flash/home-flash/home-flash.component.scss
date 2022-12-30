@@ -1,0 +1,66 @@
+.flash-form {
+  display: flex;
+  flex-direction: column;
+  height: 79%;
+  max-height: 79%;
+  min-width: 300px;
+  padding: 12px;
+}
+
+div.button-row {
+  margin-top: 10px;
+  display: flex;
+  align-items: left;
+}
+
+.largeselect {
+  min-width: 450px;
+  width: 450px;
+}
+
+button.mat-raised-button {
+  margin-left: 5px;
+}
+
+button.btn.btn-light {
+  float: left;
+  position: absolute;
+  z-index: -1;
+  margin-bottom: 10px;
+}
+
+#file {
+  opacity: 0; //Not visible
+  font-size: 0;
+  width: 90px;
+  height: 37px;
+  float: left;
+}
+
+input.upload:hover {
+  cursor: pointer;
+}
+
+.filenameToUpload {
+  display: inline;
+  margin-left: 14px;
+}
+
+.example-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.example-radio-button {
+  margin: 5px;
+}
+
+.wtm {
+  margin-top: 15px;
+}
+
+.wmtm {
+  display: block;
+  margin-top: 20px;
+}

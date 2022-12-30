@@ -1,0 +1,38 @@
+div.button-row {
+  display: inline;
+}
+
+span {
+  color: black;
+}
+
+.with-left-space {
+  margin-left: 5px;
+  .flag {
+    margin-right: 5px;
+  }
+}
+
+.menu-item {
+  a {
+    text-decoration: none;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: fit-content;
+  }
+  img {
+    margin-right: 10px;
+  }
+  span {
+    line-height: 30px;
+  }
+}
+.icon-button {
+  width: 40px;
+  height: 40px;
+}
+::ng-deep .mat-tooltip {
+  margin-top: 5px !important;
+}

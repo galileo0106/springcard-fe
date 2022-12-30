@@ -1,0 +1,39 @@
+<style>
+  .mat-dialog-title {
+    display: flex !important;
+
+  }
+  .mat-dialog-title .mat-icon {
+    margin-right: 5px
+  }
+</style>
+
+<h1 mat-dialog-title><mat-icon>library_books</mat-icon><ng-container i18n>Library</ng-container></h1>
+<mat-dialog-content>
+  <mat-form-field style="display: block">
+    <mat-label i18n>Group</mat-label>
+    <mat-select [(ngModel)]="data.groupId" (ngModelChange)="loadModels()">
+      <mat-option value="0" i18n>** ALL **</mat-option>
+      <mat-option *ngFor="let group of data.groups" [value]="group.id">{{group.title}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field style="display: block">
+    <mat-label i18n>Search:</mat-label>
+    <input matInput [type]="data.fieldInputType" [(ngModel)]="data.search" (ngModelChange)="search()" />
+  </mat-form-field>
+
+  <mat-form-field style="display: block">
+    <mat-label i18n>Select an APDU to import</mat-label>
+    <mat-select [(ngModel)]="data.modelId">
+      <mat-option *ngFor="let model of data.models" [value]="model.id"
+        >{{model.title}} <ng-container *ngIf="model.mode === 0"> (transmit)</ng-container
+        ><ng-container *ngIf="model.mode !== 0"> (control)</ng-container></mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] (click)="setValidationState(true)" color="primary" cdkFocusInitial i18n>Ok</button>
+  <button mat-button [mat-dialog-close] (click)="setValidationState(false)" i18n>Cancel</button>
+</mat-dialog-actions>

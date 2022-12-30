@@ -1,0 +1,13 @@
+.welcome-header-image {
+  background-image: url('/./assets/svg/logo-icon.svg');
+}
+.welcome-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+}
+.mat-card {
+  max-width: 990px;
+  padding: 40px 30px 20px;
+}

@@ -1,0 +1,25 @@
+<style>
+  .mat-dialog-title {
+    display: flex !important;
+
+  }
+  .mat-dialog-title .mat-icon {
+    margin-right: 5px
+  }
+</style>
+
+<h1 mat-dialog-title><mat-icon>content_copy</mat-icon><ng-container i18n>Duplicate configuration</ng-container></h1>
+<mat-dialog-content>
+  <mat-form-field style="display: block">
+    <mat-label i18n>Title</mat-label>
+    <input matInput [type]="data.fieldInputType" [(ngModel)]="data.title" required />
+  </mat-form-field>
+  <mat-form-field style="display: block">
+    <mat-label i18n>Description</mat-label>
+    <textarea matInput [type]="data.fieldInputType" [(ngModel)]="data.description"></textarea>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close] (click)="setValidationState(true)" color="primary" cdkFocusInitial i18n>Ok</button>
+  <button mat-button [mat-dialog-close] (click)="setValidationState(false)" i18n>Cancel</button>
+</mat-dialog-actions>

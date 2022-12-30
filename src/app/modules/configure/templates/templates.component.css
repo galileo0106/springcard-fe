@@ -1,0 +1,29 @@
+.full-width {
+  width: 40%;
+  display: block;
+}
+
+.margined {
+  margin: 5px 5px 5px 5px;
+}
+
+.with_horizontal_space {
+  margin-left: 8px;
+}
+
+mat-card {
+  margin-bottom: 8px;
+}
+
+div.tabcontent {
+  margin-top: 12px;
+  margin-bottom: 10px;
+}
+
+button.mat-raised-button {
+  margin-right: 8px;
+}
+
+.with_vertical_space {
+  margin-top: 20px;
+}

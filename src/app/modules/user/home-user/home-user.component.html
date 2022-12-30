@@ -1,0 +1,85 @@
+<div class="user-wrapper">
+  <div class="user-container">
+    <h2 i18n>Connect to SpringCard Companion</h2>
+    <ng-container *ngIf="isLogging">
+      <div fxLayout fxLayoutAlign="center center">
+        <mat-progress-spinner color="primary" mode="indeterminate"></mat-progress-spinner>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="!isLogging">
+      <div class="content-container">
+        <mat-card>
+          <mat-card-content>
+            <div *ngIf="!isConnected" class="content">
+              <h3>
+                <mat-icon>account_circle</mat-icon>
+                <ng-container i18n>Connection</ng-container>
+              </h3>
+              <form [formGroup]="loginForm" (ngSubmit)="login()" class="content">
+                <mat-form-field class="full-width">
+                  <mat-label i18n>Email:</mat-label>
+                  <input matInput type="email" name="email" formControlName="email" required />
+                  <mat-error>
+                    <val-errors controlName="email"></val-errors>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="full-width">
+                  <mat-label i18n>Password:</mat-label>
+                  <input matInput type="password" name="password" formControlName="password" required minlength="8"/>
+                  <mat-error>
+                    <val-errors controlName="password"></val-errors>
+                  </mat-error>
+                </mat-form-field>
+
+                <div class="bottom">
+                  <mat-checkbox labelPosition="after" formControlName="rememberpassword" i18n
+                    >Remember my password on this computer</mat-checkbox
+                  >
+                  <mat-hint><small i18n>(do not check this box on a public or shared computer)</small></mat-hint>
+                </div>
+                <button mat-stroked-button type="submit" i18n color="primary">Submit</button>
+              </form>
+            </div>
+
+            <div *ngIf="!isConnected" class="content">
+              <h3>
+                <mat-icon>account_circle</mat-icon>
+                <ng-container i18n>Not yet registred?</ng-container>
+              </h3>
+              <p i18n>SpringCard Companion is the control tower for all SpringCard NFC and RFID readers. Keep control over your configurations and secret keys, keep your devices up-to-date and unleash their full potential.</p>
+              <button *ngIf="!isConnected" mat-stroked-button (click)="redirectUserTo('./register')" i18n>Create a new account</button>
+            </div>
+
+            <div class="content">
+              <h3>
+                <mat-icon>account_circle</mat-icon>
+                <ng-container i18n>Options</ng-container>
+              </h3>
+              <h4 *ngIf="renewMessage" class="mat-h4">{{ renewMessage }}</h4>
+              <button *ngIf="isConnected" mat-stroked-button (click)="redirectUserTo('./account')" i18n>Your Account and plan</button>
+              <button *ngIf="authService.isAdmin()" mat-stroked-button (click)="redirectUserTo('./contributors')" i18n>Team members</button>
+              <button mat-stroked-button (click)="redirectUserTo('./pricing')" i18n>Pricing</button>
+              <button mat-stroked-button (click)="redirectUserTo('./requestnewpassord')" i18n>Request for a new password</button>
+              <button mat-stroked-button (click)="redirectUserTo('./setnewpassword')" i18n>Set new password</button>
+              <button *ngIf="isConnected" mat-stroked-button (click)="logout()" i18n>Disconnect ({{ email }})</button>
+              <p>
+                <a mat-list-item href="" (click)="redirectUserTo('./welcome')" class="menuItem" i18n
+                  >Privacy policy, terms and conditions of use</a
+                >
+              </p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+        <div fxFlex class="right-content">
+          <!-- Colonne de droite -->
+          <h3 i18n>Get the best of SpringCard Companion by using Springcard's cloud services.</h3>
+          <p i18n>Associated with the SpringCard Companion software, the companion.springcard.com service centralizes your information and your settings securely.</p>
+          <p i18n>No longer take the risk of losing your configurations, and exploit the full potential of your smartphone by directly configuring your SpringCard reader by NFC or BLE thanks to this single connection.</p>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
